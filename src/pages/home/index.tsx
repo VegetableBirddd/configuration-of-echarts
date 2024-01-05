@@ -4,7 +4,6 @@ import { useImmer } from "use-immer";
 import { EChartsOption } from "echarts";
 import { graphic } from "echarts";
 import axios from "axios";
-
 const Home:React.FC = ()=>{
     const [options,updateOptions] = useImmer<EChartsOption>({
         // darkMode:true,
@@ -21,23 +20,13 @@ const Home:React.FC = ()=>{
             var result = params[0].name + "<br>";
             params.forEach(function (item) {
               if (item.value) {
-                if (item.seriesName == "同比"||item.seriesName == "环比") {
-                  result +=
+                result +=
                     item.marker +
                     " " +
                     item.seriesName +
                     " : " +
                     item.value +
-                    "%</br>";
-                } else {
-                  result +=
-                    item.marker +
-                    " " +
-                    item.seriesName +
-                    " : " +
-                    item.value +
-                    "人</br>";
-                }
+                    "</br>";
               } else {
                 result += item.marker + " " + item.seriesName + " :  - </br>";
               }
@@ -51,12 +40,6 @@ const Home:React.FC = ()=>{
             color: "#B4B4B4",
           },
           top: "0",
-        },
-        grid: {
-          left: "50px",
-          right: "80px",
-          bottom: "30px",
-          top: "20px",
         },
         xAxis: {
           data: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
@@ -116,19 +99,44 @@ const Home:React.FC = ()=>{
           }
         ],
       });
+    const [singal,setSigal] = useState<boolean>(false);
+    const [distance,setDistance] = useState<number>(300);//调整布局
+    const leftDistance = window.innerWidth - distance;
+    function onResizeupdate(){//监听浏览器
+      window.addEventListener(
+        'resize',
+        ()=>{
+          setSigal(pre=>!pre);
+        },
+        false
+      )
+    }
     useEffect(()=>{
         async function init(){
             let {data} = await axios.get('test/data');
             console.log(data)
         }
         init();
+        onResizeupdate();
     },[]);
     return (
-        <div>
-            <EchartWrap options={options}  style={{
-                width:500,
-                height:500
+        <div className='flex flex-nowrap h-screen w-screen overflow-hidden relative'>
+            <div className=" h-full border-2" style={{
+              maxWidth:'calc( 100% - 100px )',
+              width:leftDistance
+            }}>
+              <EchartWrap options={options}/>
+            </div>
+            <div className=" h-full absolute top-0 bg-black" style={{
+              left:leftDistance,
+              width:15
             }}/>
+            <div className=" h-full min-w100" style={{
+              width:distance-15,
+              zIndex:999
+            }}>
+              属性配置项
+            </div>
         </div>
     )
 }

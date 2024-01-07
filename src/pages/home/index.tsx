@@ -101,6 +101,7 @@ const Home:React.FC = ()=>{
       });
     const [singal,setSigal] = useState<boolean>(false);
     const [distance,setDistance] = useState<number>(300);//调整布局
+    const [isDragging, setIsDragging] = useState(false); //判断是否拖动
     const leftDistance = window.innerWidth - distance;
     function onResizeupdate(){//监听浏览器
       window.addEventListener(
@@ -127,13 +128,20 @@ const Home:React.FC = ()=>{
             }}>
               <EchartWrap options={options}/>
             </div>
-            <div className=" h-full absolute top-0 bg-black" style={{
+            <div className=" h-full absolute top-0 bg-black hover:cursor-col-resize" style={{
               left:leftDistance,
-              width:15
-            }}/>
+              width:15,
+              background:'#f3f4fa'
+            }}
+              onMouseDown={(event: React.MouseEvent<HTMLDivElement>)=>{
+                event.preventDefault();
+                setIsDragging(true);
+              }}
+            />
             <div className=" h-full min-w100" style={{
               width:distance-15,
-              zIndex:999
+              zIndex:999,
+              marginLeft:15
             }}>
               属性配置项
             </div>

@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import EchartWrap from "@/components/EchartsWrap";
 import { useImmer } from "use-immer";
 import { EChartsOption } from "echarts";
 import { graphic } from "echarts";
 import axios from "axios";
+const slideL = 15;//拉条宽度
+const defaultDistance = 300;//默认长度
+const minRightLength = 200;//右边最小长度
+const minLeftLength = 550;//左边最小长度
 const Home:React.FC = ()=>{
     const [options,updateOptions] = useImmer<EChartsOption>({
         // darkMode:true,
@@ -99,11 +103,13 @@ const Home:React.FC = ()=>{
           }
         ],
       });
-    const [singal,setSigal] = useState<boolean>(false);
-    const [distance,setDistance] = useState<number>(300);//调整布局
+    const initialMouseX = useRef(0);
+    const wrapParent = useRef<HTMLDivElement>(null);
+    const [_,setSigal] = useState<boolean>(false);
+    const [distance,setDistance] = useState<number>(defaultDistance);//调整布局
     const [isDragging, setIsDragging] = useState(false); //判断是否拖动
     const leftDistance = window.innerWidth - distance;
-    function onResizeupdate(){//监听浏览器
+    function onResizeupdate(){//监听浏览器用于更新
       window.addEventListener(
         'resize',
         ()=>{
@@ -112,36 +118,64 @@ const Home:React.FC = ()=>{
         false
       )
     }
+    // 可拉动扩展条
+    // 鼠标点击事件，触发鼠标滚动事件
+    function onMouseDown(event: React.MouseEvent<HTMLDivElement>){
+      initialMouseX.current = event.clientX;
+      event.preventDefault();
+      setIsDragging(true);
+    }
+    useEffect(()=>{
+      const handleMouseMove = (event: MouseEvent)=>{
+        if(isDragging){
+          let l = distance - event.clientX + initialMouseX?.current;
+          if(l<(minRightLength+slideL))l=minRightLength+slideL;//边界处理
+          if(window.innerWidth-l<minLeftLength){//有点问题待修改
+            l=minLeftLength;
+          }
+          
+          setDistance(l);
+        }
+      }
+      const handleMouseUp = () => {
+        setIsDragging(false);
+      };
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+
+      return () => {
+        // 记得清除监听事件
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+      };
+    },[isDragging])
     useEffect(()=>{
         async function init(){
             let {data} = await axios.get('test/data');
-            console.log(data)
         }
         init();
         onResizeupdate();
     },[]);
     return (
         <div className='flex flex-nowrap h-screen w-screen overflow-hidden relative'>
-            <div className=" h-full border-2" style={{
+            <div ref={wrapParent} className=" h-full border-2" style={{
               maxWidth:'calc( 100% - 100px )',
               width:leftDistance
             }}>
-              <EchartWrap options={options}/>
+              <EchartWrap options={options} wrap={wrapParent.current}/>
             </div>
-            <div className=" h-full absolute top-0 bg-black hover:cursor-col-resize" style={{
+            <div className=" h-full absolute top-0 bg-black cursor-col-resize" style={{
               left:leftDistance,
-              width:15,
+              width:slideL,
               background:'#f3f4fa'
             }}
-              onMouseDown={(event: React.MouseEvent<HTMLDivElement>)=>{
-                event.preventDefault();
-                setIsDragging(true);
-              }}
+              onMouseDown={onMouseDown}
             />
-            <div className=" h-full min-w100" style={{
-              width:distance-15,
+            <div className=" h-full" style={{
+              width:distance-slideL,
               zIndex:999,
-              marginLeft:15
+              marginLeft:slideL,
+              minWidth:minRightLength
             }}>
               属性配置项
             </div>

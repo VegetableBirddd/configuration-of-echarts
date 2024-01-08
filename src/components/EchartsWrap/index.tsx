@@ -1,15 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import * as echarts from 'echarts/lib/echarts'
 import {GridComponent} from 'echarts/components'
 import { EChartsOption, EChartsType } from "echarts";
 import { TooltipComponent } from 'echarts/components';
 import { debounce } from 'lodash' //引入防抖函数
+import { useSize } from "ahooks";
 
 interface Props {
     id?:string,
     style?:React.CSSProperties,
     options:EChartsOption,
-    className?:string
+    className?:string,
+    wrap?:HTMLElement|null
 }
 const EchartWrap:React.FC<Props> = (
     {
@@ -19,45 +21,37 @@ const EchartWrap:React.FC<Props> = (
             height:'100%'
         },
         options,
-        className
+        className,
+        wrap
     }
 )=>{
     const [chart,setChart] = useState<EChartsType | null>(null);
     const chartRef = useRef<any>(null);
-    function onResize(chart:EChartsType){
-        let fn = debounce(
-            () => {
-                if(chart){
-                    chart.resize({animation: {duration:500}});
-                }
-            },
-            200
-        )
-        window.addEventListener( //自适应屏幕
-            "resize",
-            fn
-            ,
-            false
-        )
-        return fn;//用于销毁监听器
-    }
+    const size = useSize(wrap);
+    let fn = useCallback(debounce(
+        () => {
+            if(chart){
+                chart.resize();
+            }
+        },
+        10
+    ),[chart])
+    useEffect(()=>{ //监听容器大小
+        fn();
+    },[size])
+    useEffect(()=>{ //自适应屏幕
+        window.addEventListener("resize",fn,false)
+    },[chart])
     useEffect(()=>{ //初始化
-        let fn =null;
         if(chartRef.current){
             echarts.use([GridComponent]);
             echarts.use([TooltipComponent]); 
-            let chartEntity = echarts.init(chartRef.current);
-            setChart(()=>{
-                fn = onResize(chartEntity);
-                return chartEntity;
-            });
+            setChart(echarts.init(chartRef.current));
         }
         
         return ()=>{ //销毁处理函数
             if(chart) chart.dispose();
-            if(fn){
-                window.removeEventListener('resize',fn,false);
-            }
+            window.removeEventListener('resize',fn,false);
             setChart(null);
         }
     },[])

@@ -7,7 +7,7 @@ import axios from "axios";
 const slideL = 15;//拉条宽度
 const defaultDistance = 300;//默认长度
 const minRightLength = 200;//右边最小长度
-const minLeftLength = 550;//左边最小长度
+const minLeftLength = 200;//左边最小长度
 const Home:React.FC = ()=>{
     const [options,updateOptions] = useImmer<EChartsOption>({
         // darkMode:true,
@@ -129,9 +129,9 @@ const Home:React.FC = ()=>{
       const handleMouseMove = (event: MouseEvent)=>{
         if(isDragging){
           let l = distance - event.clientX + initialMouseX?.current;
-          if(l<(minRightLength+slideL))l=minRightLength+slideL;//边界处理
-          if(window.innerWidth-l<minLeftLength){//有点问题待修改
-            l=minLeftLength;
+          if(l<(minRightLength+slideL))l=minRightLength+slideL;//右边边界处理
+          if(window.innerWidth-l<minLeftLength){//左边边界值
+            l=window.innerWidth-minLeftLength;
           }
           
           setDistance(l);

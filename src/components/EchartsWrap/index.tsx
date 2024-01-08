@@ -34,7 +34,7 @@ const EchartWrap:React.FC<Props> = (
                 chart.resize();
             }
         },
-        10
+        0
     ),[chart])
     useEffect(()=>{ //监听容器大小
         fn();

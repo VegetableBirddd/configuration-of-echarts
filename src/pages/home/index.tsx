@@ -4,6 +4,11 @@ import { useImmer } from "use-immer";
 import { EChartsOption } from "echarts";
 import { graphic } from "echarts";
 import axios from "axios";
+
+import AceEditor from "react-ace";
+import "ace-builds/src-noconflict/mode-json";
+import "ace-builds/src-noconflict/theme-github";
+
 const slideL = 15;//拉条宽度
 const defaultDistance = 300;//默认长度
 const minRightLength = 200;//右边最小长度
@@ -109,6 +114,15 @@ const Home:React.FC = ()=>{
     const [distance,setDistance] = useState<number>(defaultDistance);//调整布局
     const [isDragging, setIsDragging] = useState(false); //判断是否拖动
     const leftDistance = window.innerWidth - distance;
+    //编辑更新
+    function onChange(newValue) {
+      try {
+        updateOptions(JSON.parse(newValue));
+      } catch (error) {
+        console.error(error)
+      }
+      
+    }
     function onResizeupdate(){//监听浏览器用于更新
       window.addEventListener(
         'resize',
@@ -158,12 +172,14 @@ const Home:React.FC = ()=>{
     },[]);
     return (
         <div className='flex flex-nowrap h-screen w-screen overflow-hidden relative'>
+
             <div ref={wrapParent} className=" h-full border-2" style={{
               maxWidth:'calc( 100% - 100px )',
               width:leftDistance
             }}>
               <EchartWrap options={options} wrap={wrapParent.current}/>
             </div>
+
             <div className=" h-full absolute top-0 bg-black cursor-col-resize" style={{
               left:leftDistance,
               width:slideL,
@@ -171,6 +187,7 @@ const Home:React.FC = ()=>{
             }}
               onMouseDown={onMouseDown}
             />
+
             <div className=" h-full" style={{
               width:distance-slideL,
               zIndex:999,
@@ -178,6 +195,25 @@ const Home:React.FC = ()=>{
               minWidth:minRightLength
             }}>
               属性配置项
+              <AceEditor
+                mode="json"
+                theme="github"
+                onChange={onChange}
+                name="UNIQUE_ID_OF_DIV"
+                setOptions={{
+                  enableBasicAutocompletion: false,
+                  enableLiveAutocompletion: false,
+                  enableSnippets: false,
+                  showLineNumbers: true,
+                  tabSize: 2,
+                  useWorker:false
+                }}
+                value={JSON.stringify(options, null, 2)}
+                width={minRightLength.toString()}
+                style={{
+                  height:`calc( 100% - ${30}px )`
+                }}
+              />
             </div>
         </div>
     )

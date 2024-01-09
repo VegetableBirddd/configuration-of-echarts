@@ -56,7 +56,13 @@ const EchartWrap:React.FC<Props> = (
         }
     },[])
     useEffect(()=>{
-        if(chart) chart.setOption(options,true);
+        if(chart){
+            try {
+                chart.setOption(options,true);
+            } catch (error) {
+                console.log(error)
+            }
+        } 
     },[chart,options])
     return (
         <div ref={chartRef} className={className} id={id} style={style}/>

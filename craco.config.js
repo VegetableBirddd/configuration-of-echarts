@@ -20,13 +20,16 @@ module.exports = {
       return webpackConfig;
     },
   },
-  devServer: {
+  devServer: {//开发者模式下配置
     // 本地服务的端口号
     port: 3000,
     // 本地服务的响应头设置
     headers: {
       // 允许跨域
       'Access-Control-Allow-Origin': '*',
+    },
+    client: {//关掉Shows a full-screen overlay in the browser when there are compiler errors or warnings
+      overlay: false,
     },
     proxy:{
       '/api':{

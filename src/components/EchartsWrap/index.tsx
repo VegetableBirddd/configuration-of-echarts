@@ -5,6 +5,9 @@ import { EChartsOption, EChartsType } from "echarts";
 import { TooltipComponent } from 'echarts/components';
 import { debounce } from 'lodash' //引入防抖函数
 import { useSize } from "ahooks";
+//配置echarts
+echarts.use([GridComponent]);
+echarts.use([TooltipComponent]); 
 
 interface Props {
     id?:string,
@@ -44,8 +47,6 @@ const EchartWrap:React.FC<Props> = (
     },[chart])
     useEffect(()=>{ //初始化
         if(chartRef.current){
-            echarts.use([GridComponent]);
-            echarts.use([TooltipComponent]); 
             setChart(echarts.init(chartRef.current));
         }
         

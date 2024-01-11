@@ -119,9 +119,7 @@ const Home:React.FC = ()=>{
       try {
         updateOptions(JSON.parse(newValue));
       } catch (error) {
-        console.error(error)
       }
-      
     }
     function onResizeupdate(){//监听浏览器用于更新
       window.addEventListener(
@@ -177,7 +175,12 @@ const Home:React.FC = ()=>{
               maxWidth:'calc( 100% - 100px )',
               width:leftDistance
             }}>
-              <EchartWrap options={options} wrap={wrapParent.current}/>
+              <EchartWrap options={options} wrap={wrapParent.current} style={{
+                height:'calc(100% - 50px )'
+              }}/>
+              <div style={{height:50}}>
+                
+              </div>
             </div>
 
             <div className=" h-full absolute top-0 bg-black cursor-col-resize" style={{

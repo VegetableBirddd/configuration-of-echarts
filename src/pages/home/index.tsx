@@ -6,7 +6,7 @@ import { graphic } from "echarts";
 import axios from "axios";
 
 import AceEditor from "react-ace";
-import "ace-builds/src-noconflict/mode-json";
+import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-github";
 
 const slideL = 15;//拉条宽度
@@ -113,13 +113,24 @@ const Home:React.FC = ()=>{
     const [_,setSigal] = useState<boolean>(false);
     const [distance,setDistance] = useState<number>(defaultDistance);//调整布局
     const [isDragging, setIsDragging] = useState(false); //判断是否拖动
+    const [inputValue,setInputValue] = useState(JSON.stringify(options,null,2));//输入值变量
+    const [fail,setFail] = useState(false);
     const leftDistance = window.innerWidth - distance;
     //编辑更新函数
     function onChange(newValue) {
+      let singal = false;//判断是否为json格式报错
+      setInputValue(newValue);
       try {
-        updateOptions(JSON.parse(newValue));
+        JSON.parse(newValue)
       } catch (error) {
+        singal = true;
         console.log(error);
+      }
+      if(!singal){
+        updateOptions(JSON.parse(newValue));
+        setFail(false);
+      }else{
+        setFail(true);
       }
     }
     function onResizeupdate(){//监听浏览器用于更新
@@ -176,7 +187,14 @@ const Home:React.FC = ()=>{
               maxWidth:'calc( 100% - 100px )',
               width:leftDistance
             }}>
-              <EchartWrap options={options} wrap={wrapParent.current}/>
+              <EchartWrap options={options} wrap={wrapParent.current} 
+                style={{
+                  height:'calc( 100% - 50px )'
+                }}
+              />
+              <div style={{height:50}}>
+                {fail&&'error!'}
+              </div>
             </div>
 
             <div className=" h-full absolute top-0 bg-black cursor-col-resize" style={{
@@ -195,7 +213,7 @@ const Home:React.FC = ()=>{
             }}>
               属性配置项
               <AceEditor
-                mode="json"
+                mode="javascript"
                 theme="github"
                 onChange={onChange}
                 name="UNIQUE_ID_OF_DIV"
@@ -207,7 +225,7 @@ const Home:React.FC = ()=>{
                   tabSize: 2,
                   useWorker:false
                 }}
-                value={JSON.stringify(options, null, 2)}
+                value={inputValue}
                 width={minRightLength.toString()}
                 style={{
                   height:`calc( 100% - ${30}px )`

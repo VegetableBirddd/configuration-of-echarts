@@ -113,17 +113,14 @@ const Home:React.FC = ()=>{
     const [_,setSigal] = useState<boolean>(false);
     const [distance,setDistance] = useState<number>(defaultDistance);//调整布局
     const [isDragging, setIsDragging] = useState(false); //判断是否拖动
-    const [fail,setFail] = useState(false);
     const leftDistance = window.innerWidth - distance;
     //编辑更新函数
     function onChange(newValue) {
-      setFail(false)
-      new Promise((resolve,reject)=>{ //利用promise捕获错误
+      try {
         updateOptions(JSON.parse(newValue));
-      }).catch(res=>{
-        console.log(res);
-        setFail(true)
-      })
+      } catch (error) {
+        console.log(error);
+      }
     }
     function onResizeupdate(){//监听浏览器用于更新
       window.addEventListener(

@@ -107,14 +107,14 @@ const Home:React.FC = ()=>{
             data: [202, 112, 242, 7, 2, 592, 320, 6, 12, 151,263,620],
           }
         ],
-      });
+      });//echarts配置
     const initialMouseX = useRef(0);
     const wrapParent = useRef<HTMLDivElement>(null);
     const [_,setSigal] = useState<boolean>(false);
     const [distance,setDistance] = useState<number>(defaultDistance);//调整布局
     const [isDragging, setIsDragging] = useState(false); //判断是否拖动
     const [inputValue,setInputValue] = useState(JSON.stringify(options,null,2));//输入值变量
-    const [fail,setFail] = useState(false);
+    const [fail,setFail] = useState(false);//报错信号变量
     const leftDistance = window.innerWidth - distance;
     //编辑更新函数
     function onChange(newValue) {

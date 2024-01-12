@@ -30,6 +30,10 @@ const EchartWrap:React.FC<Props> = (
 )=>{
     const [chart,setChart] = useState<EChartsType | null>(null);
     const chartRef = useRef<any>(null);
+    //用于setOptions防错
+    const [testChart,setTestChart] = useState<EChartsType | null>(null);
+    const testChartRef = useRef<any>(null);
+    
     const size = useSize(wrap);
     let fn = useCallback(debounce(
         () => {
@@ -49,24 +53,44 @@ const EchartWrap:React.FC<Props> = (
         if(chartRef.current){
             setChart(echarts.init(chartRef.current));
         }
+        if(testChartRef.current){
+            setTestChart(echarts.init(testChartRef.current));
+        }
         
         return ()=>{ //销毁处理函数
             if(chart) chart.dispose();
+            if(testChart) testChart.dispose();
             window.removeEventListener('resize',fn,false);
             setChart(null);
+            setTestChart(null);
         }
     },[])
     useEffect(()=>{
-        if(chart){
+        if(chart&&testChart){
+            let singal = false;//报错信号
             try {
-                chart.setOption(options,true);
+                testChart.setOption(options,true);
             } catch (error) {
+                singal = true;
                 console.log(error)
+            }
+            if(!singal){
+                chart.setOption(options,true);
+            }else {
+                //如果不行，只用重新实例化一个
+                testChart.dispose();
+                setTestChart(echarts.init(testChartRef.current));
             }
         } 
     },[chart,options])
     return (
-        <div ref={chartRef} className={className} id={id} style={style}/>
+        <>
+            <div ref={chartRef} className={className} id={id} style={style}/>
+            <div ref={testChartRef} className={className} id='testChart' style={{
+                display:'none' //用于测试属性是否报错
+            }}/>
+        </>
+        
     )
 }
 

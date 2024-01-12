@@ -113,13 +113,17 @@ const Home:React.FC = ()=>{
     const [_,setSigal] = useState<boolean>(false);
     const [distance,setDistance] = useState<number>(defaultDistance);//调整布局
     const [isDragging, setIsDragging] = useState(false); //判断是否拖动
+    const [fail,setFail] = useState(false);
     const leftDistance = window.innerWidth - distance;
-    //编辑更新
+    //编辑更新函数
     function onChange(newValue) {
-      try {
+      setFail(false)
+      new Promise((resolve,reject)=>{ //利用promise捕获错误
         updateOptions(JSON.parse(newValue));
-      } catch (error) {
-      }
+      }).catch(res=>{
+        console.log(res);
+        setFail(true)
+      })
     }
     function onResizeupdate(){//监听浏览器用于更新
       window.addEventListener(
@@ -175,12 +179,7 @@ const Home:React.FC = ()=>{
               maxWidth:'calc( 100% - 100px )',
               width:leftDistance
             }}>
-              <EchartWrap options={options} wrap={wrapParent.current} style={{
-                height:'calc(100% - 50px )'
-              }}/>
-              <div style={{height:50}}>
-                
-              </div>
+              <EchartWrap options={options} wrap={wrapParent.current}/>
             </div>
 
             <div className=" h-full absolute top-0 bg-black cursor-col-resize" style={{

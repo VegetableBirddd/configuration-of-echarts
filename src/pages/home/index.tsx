@@ -4,15 +4,15 @@ import { useImmer } from "use-immer";
 import { EChartsOption } from "echarts";
 import { graphic } from "echarts";
 import axios from "axios";
-
-import AceEditor from "react-ace";
-import "ace-builds/src-noconflict/mode-javascript";
-import "ace-builds/src-noconflict/theme-github";
+import AceEditor from "@/components/AceEditor";//导入editor
+import { Tabs } from "antd";
+import './index.css'
 
 const slideL = 15;//拉条宽度
 const defaultDistance = 300;//默认长度
 const minRightLength = 200;//右边最小长度
 const minLeftLength = 200;//左边最小长度
+
 const Home:React.FC = ()=>{
     const [options,updateOptions] = useImmer<EChartsOption>({
         // darkMode:true,
@@ -211,25 +211,45 @@ const Home:React.FC = ()=>{
               marginLeft:slideL,
               minWidth:minRightLength
             }}>
-              属性配置项
-              <AceEditor
-                mode="javascript"
-                theme="github"
-                onChange={onChange}
-                name="UNIQUE_ID_OF_DIV"
-                setOptions={{
-                  enableBasicAutocompletion: false,
-                  enableLiveAutocompletion: false,
-                  enableSnippets: false,
-                  showLineNumbers: true,
-                  tabSize: 2,
-                  useWorker:false
+              <Tabs
+                className="home-tab"
+                onChange={(key: string)=>{
+                  console.log(key);
                 }}
-                value={inputValue}
-                width={minRightLength.toString()}
-                style={{
-                  height:`calc( 100% - ${30}px )`
-                }}
+                type="card"
+                items={
+                  [
+                    {
+                      label:'代码编辑',
+                      key:'editor',
+                      content:(
+                        <AceEditor
+                          onChange={onChange}
+                          value={inputValue}
+                          width={minRightLength.toString()}
+                          style={{
+                            height:`100%`,
+                          }}
+                        />
+                      )
+                    },
+                    {
+                      label:'快速添加属性',
+                      key:'shortcut',
+                      content:(
+                        <div>
+                          快捷添加内容。。。
+                        </div>
+                      )
+                    }
+                  ].map(item=>{
+                    return {
+                      label: `${item.label}`,
+                      key: item.key,
+                      children: item.content,
+                    };
+                  })
+                }
               />
             </div>
         </div>

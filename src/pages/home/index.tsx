@@ -8,100 +8,6 @@ import AceEditor from "@/components/AceEditor";//导入editor
 import { Button, Tabs, Typography } from "antd";
 import './index.css'
 import { stringify } from "@/utils";
-console.log(stringify({
-        // darkMode:true,
-        // backgroundColor:'red',
-        tooltip: {
-          trigger: "axis",
-          backgroundColor: "rgba(0,0,0,.6)",
-          borderColor: "rgba(147, 235, 248, .8)",
-          textStyle: {
-            color: "#FFF",
-          },
-          formatter: function (params) {
-            // 添加单位
-            var result = params[0].name + "<br>";
-            params.forEach(function (item) {
-              if (item.value) {
-                result +=
-                    item.marker +
-                    " " +
-                    item.seriesName +
-                    " : " +
-                    item.value +
-                    "</br>";
-              } else {
-                result += item.marker + " " + item.seriesName + " :  - </br>";
-              }
-            });
-            return result;
-          },
-        },
-        legend: {
-          data: ["今年", "去年"],
-          textStyle: {
-            color: "#B4B4B4",
-          },
-          top: "0",
-        },
-        xAxis: {
-          data: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
-          axisLine: {
-            lineStyle: {
-              color: "#B4B4B4",
-            },
-          },
-          axisTick: {
-            show: false,
-          },
-          offset:6
-        },
-        yAxis: [
-          {
-            splitLine: { show: false },
-            axisLine: {
-              lineStyle: {
-                color: "#B4B4B4",
-              },
-            },
-            alignTicks: true,
-            axisLabel: {
-              formatter: "{value}",
-            },
-          },
-        ],
-        series: [
-          {
-            name: "今年",
-            type: "bar",
-            barWidth: 10,
-            itemStyle: {
-              borderRadius: [5,5,0,0],
-              color: new graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "#956FD4" },
-                { offset: 1, color: "#3EACE5" },
-              ]),
-            },
-            data: [213, 123, 234, 12, 5, 912, 220, 13, 12, 152,663,23],
-          },
-          {
-            name: "去年",
-            type: "bar",
-            // barGap: "-100%",
-            barWidth: 10,
-            itemStyle: {
-              borderRadius: [5,5,0,0],
-              color: new graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: "rgba(156,107,211,0.8)" },
-                { offset: 0.2, color: "rgba(156,107,211,0.5)" },
-                { offset: 1, color: "rgba(156,107,211,0.2)" },
-              ]),
-            },
-            z: -12,
-            data: [202, 112, 242, 7, 2, 592, 320, 6, 12, 151,263,620],
-          }
-        ],
-      }))
 
 const { Paragraph } = Typography; //导入复制组件
 const slideL = 15;//拉条宽度
@@ -209,21 +115,22 @@ const Home:React.FC = ()=>{
     const [_,setSigal] = useState<boolean>(false);
     const [distance,setDistance] = useState<number>(defaultDistance);//调整布局
     const [isDragging, setIsDragging] = useState(false); //判断是否拖动
-    const [inputValue,setInputValue] = useState(JSON.stringify(options,null,2));//输入值变量
+    const [inputValue,setInputValue] = useState(stringify(options));//输入值变量
     const [fail,setFail] = useState(false);//报错信号变量
     const leftDistance = window.innerWidth - distance;
     //编辑更新函数
     function onChange(newValue) {
       let singal = false;//判断是否为json格式报错
+      let temp:any;
       setInputValue(newValue);
       try {
-        JSON.parse(newValue)
+        eval(`temp = ${newValue}`)
       } catch (error) {
         singal = true;
         console.log(error);
       }
       if(!singal){
-        updateOptions(JSON.parse(newValue));
+        updateOptions(temp);
         setFail(false);
       }else{
         setFail(true);

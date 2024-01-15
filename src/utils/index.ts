@@ -175,7 +175,7 @@ function createObj(obj,level) {
  
     for (const key in obj) {
         if (obj.hasOwnProperty(key)) {
-            res += `${blank}"${key}": ${handler(obj[key], getType(obj[key]), level+1)},\n`
+            res += `${blank}${key}: ${handler(obj[key], getType(obj[key]), level+1)},\n`
         }
     }
     const symbolList = Object.getOwnPropertySymbols(obj)

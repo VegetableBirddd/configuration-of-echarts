@@ -1,13 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import * as echarts from 'echarts/lib/echarts'
-import {GridComponent} from 'echarts/components'
+
+import * as echarts from 'echarts';//引入全部echarts，后期可根据需要引入
 import { EChartsOption, EChartsType } from "echarts";
-import { TooltipComponent } from 'echarts/components';
 import { debounce } from 'lodash' //引入防抖函数
 import { useSize } from "ahooks";
-//配置echarts
-echarts.use([GridComponent]);
-echarts.use([TooltipComponent]); 
 
 interface Props {
     id?:string,

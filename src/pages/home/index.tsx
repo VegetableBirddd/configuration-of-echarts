@@ -5,9 +5,10 @@ import { EChartsOption } from "echarts";
 import { graphic } from "echarts";
 import axios from "axios";
 import AceEditor from "@/components/AceEditor";//导入editor
-import { Tabs } from "antd";
+import { Button, Tabs, Typography } from "antd";
 import './index.css'
 
+const { Paragraph } = Typography; //导入复制组件
 const slideL = 15;//拉条宽度
 const defaultDistance = 300;//默认长度
 const minRightLength = 200;//右边最小长度
@@ -185,15 +186,35 @@ const Home:React.FC = ()=>{
 
             <div ref={wrapParent} className=" h-full border-2" style={{
               maxWidth:'calc( 100% - 100px )',
-              width:leftDistance
+              width:leftDistance,
             }}>
               <EchartWrap options={options} wrap={wrapParent.current} 
                 style={{
-                  height:'calc( 100% - 50px )'
+                  height:'calc( 100% - 50px )',
+                  boxSizing:'border-box',
+                  boxShadow: `rgba(0, 0, 0, 0.1) 0px 0px 20px`,
                 }}
               />
-              <div style={{height:50}}>
-                {fail&&'error!'}
+              <div className=" flex justify-between items-center" style={{
+                  height:50,
+                  background:'#f3f4fa'
+                }}>
+                <div style={{
+                  marginLeft:20
+                }}>{fail?'出错啦!':'成功渲染!'}</div>
+                <Paragraph
+                  style={{
+                    fontSize:20,
+                    marginBottom:0,
+                    marginRight:20
+                  }}
+                  copyable={{
+                    // icon: [<SmileOutlined key="copy-icon" />, <SmileFilled key="copied-icon" />],
+                    tooltips: ['复制代码', '已复制!!'],
+                    text: inputValue.replace(/"(.*)":/g,'$1:')
+                  }}
+                />
+                
               </div>
             </div>
 

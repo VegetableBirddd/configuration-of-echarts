@@ -43,7 +43,7 @@ export function stringify(val) {
         throw new TypeError('Arguments are not arrays or objects')
     }
  
-    return handler(val, type)
+    return handler(val, type, 1)
 }
  
 /**
@@ -52,7 +52,7 @@ export function stringify(val) {
  * @param {string} type 
  * @returns {string}
  */
-function handler(val, type) {
+function handler(val, type, level) {
     switch (type) {
         case typings.number:
             return createNum(val)
@@ -77,13 +77,13 @@ function handler(val, type) {
         case typings.asyncGenerator:
             return createAsyncGenerator(val)
         case typings.object:
-            return createObj(val)
+            return createObj(val,level)
         case typings.array:
-            return createArr(val)
+            return createArr(val,level)
         case typings.map:
-            return createMap(val)
+            return createMap(val,level)
         case typings.set:
-            return createSet(val)
+            return createSet(val,level)
         case typings.regExp:
             return createRegExp(val)
         case typings.math:
@@ -164,53 +164,57 @@ function createAsyncGenerator(asyncGenerator) {
     return asyncGeneratorReg.test(asyncGeneratorStr) ? asyncGeneratorStr : asyncGeneratorStr.replace('async *', 'async function*')
 }
  
-function createObj(obj) {
+function createObj(obj,level) {
+    let blank = '';
+    for(let i=0;i<level;i++){
+        blank+='  '
+    }
     let start = '{\n'
-    let end = '  \n}'
+    let end = `\n${blank.slice(2)}}`
     let res = ''
  
     for (const key in obj) {
         if (obj.hasOwnProperty(key)) {
-            res += `  "${key}": ${handler(obj[key], getType(obj[key]))},\n`
+            res += `${blank}"${key}": ${handler(obj[key], getType(obj[key]), level+1)},\n`
         }
     }
     const symbolList = Object.getOwnPropertySymbols(obj)
     for (const symbol of symbolList) {
         const symbolStr = createSymbol(symbol)
-        res += `[${symbolStr}]: ${handler(obj[symbol], getType(obj[symbol]))},`
+        res += `[${symbolStr}]: ${handler(obj[symbol], getType(obj[symbol]), level+1)},\n`
     }
  
     return start + res.slice(0, -1) + end
 }
  
-function createArr(arr) {
+function createArr(arr, level) {
     let start = '['
     let end = ']'
     let res = ''
  
     for (const item of arr) {
-        res += handler(item, getType(item)) + ','
+        res += handler(item, getType(item),level) + ','
     }
  
     return start + res.slice(0, -1) + end
 }
  
-function createMap(map) {
+function createMap(map,level) {
     let start = 'new Map(['
     let end = '])'
     let res = ''
     map.forEach((val, key) => {
-        res += `[${handler(key, getType(key))}, ${handler(val, getType(val))}],`
+        res += `[${handler(key, getType(key),level)}, ${handler(val, getType(val),level)}],`
     })
  
     return start + res.slice(0, -1) + end
 }
  
-function createSet(set) {
+function createSet(set,level) {
     let start = 'new Set('
     let end = ')'
  
-    return start + createArr([...set]) + end
+    return start + createArr([...set],level) + end
 }
  
 function createRegExp(regExp) {

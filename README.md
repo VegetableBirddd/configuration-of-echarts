@@ -21,4 +21,6 @@ configuratio-of-echarts 是一个用于在线观看echarts图表的demo，创建
 * 。。。
 
 ## 记录问题
-* 1.用的是JSON格式导入进编辑器中的，可能会导致有问题
+* 1.用的是JSON格式导入进编辑器中的，可能会导致有问题，不使用自带的JSON.stringify/parse
+    - 使用自定义函数stringify来讲对象转为字符串（还要将函数转为对应字符串），JSON.stringify不能转函数
+    - 解析的时候用eval()函数来转为相应的代码

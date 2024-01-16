@@ -113,6 +113,7 @@ const Home:React.FC = ()=>{
     const initialMouseX = useRef(0);
     const wrapParent = useRef<HTMLDivElement>(null);
     const [_,setSigal] = useState<boolean>(false);
+    const [refresh,setRefresh] = useState<boolean>(true);
     const [distance,setDistance] = useState<number>(defaultDistance);//调整布局
     const [isDragging, setIsDragging] = useState(false); //判断是否拖动
     const [inputValue,setInputValue] = useState(stringify(options));//输入值变量
@@ -137,6 +138,12 @@ const Home:React.FC = ()=>{
         },
         false
       )
+    }
+    function onRefresh(){//重新刷新渲染
+      setRefresh(false);
+      setTimeout(()=>{
+        setRefresh(true);
+      },100)
     }
     // 可拉动扩展条
     // 鼠标点击事件，触发鼠标滚动事件
@@ -183,13 +190,22 @@ const Home:React.FC = ()=>{
               maxWidth:'calc( 100% - 100px )',
               width:leftDistance,
             }}>
-              <EchartWrap options={options} wrap={wrapParent.current} errorFn={setFail}
+              <div 
                 style={{
                   height:'calc( 100% - 50px )',
                   boxSizing:'border-box',
                   boxShadow: `rgba(0, 0, 0, 0.1) 0px 0px 20px`,
                 }}
-              />
+              >
+                {
+                  refresh && 
+                  <EchartWrap options={options} wrap={wrapParent.current} errorFn={setFail}
+                    style={{
+                      height:'100%',
+                    }}
+                  />}
+              </div>
+              
               <div className=" flex justify-between items-center" style={{
                   height:50,
                   background:'#f3f4fa'
@@ -197,18 +213,22 @@ const Home:React.FC = ()=>{
                 <div style={{
                   marginLeft:20
                 }}>{fail?'出错啦!':'成功渲染!'}</div>
-                <Paragraph
-                  style={{
-                    fontSize:20,
-                    marginBottom:0,
-                    marginRight:20
-                  }}
-                  copyable={{
-                    // icon: [<SmileOutlined key="copy-icon" />, <SmileFilled key="copied-icon" />],
-                    tooltips: ['复制代码', '已复制!!'],
-                    text: inputValue.replace(/"(.*)":/g,'$1:')
-                  }}
-                />
+                <div className=" flex justify-between items-center">
+                  <span onClick={onRefresh}>重新渲染</span>
+                  <Paragraph
+                    style={{
+                      fontSize:20,
+                      marginBottom:0,
+                      marginRight:20
+                    }}
+                    copyable={{
+                      // icon: [<SmileOutlined key="copy-icon" />, <SmileFilled key="copied-icon" />],
+                      tooltips: ['复制代码', '已复制!!'],
+                      text: inputValue.replace(/"(.*)"\s*:/g,'$1:'),//去除JSON格式中key的双引号
+                    }}
+                  />
+                </div>
+                
                 
               </div>
             </div>
@@ -256,6 +276,15 @@ const Home:React.FC = ()=>{
                         <div>
                           快捷添加内容。。。
                         </div>
+                      )
+                    },
+                    {
+                      label:'好看示例',
+                      key:'example',
+                      content:(
+                        <>
+                          好看示例。。。
+                        </>
                       )
                     }
                   ].map(item=>{

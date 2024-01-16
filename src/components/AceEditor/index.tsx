@@ -15,7 +15,8 @@ export default ({onChange,value,...props})=>{
                   enableSnippets: false,
                   showLineNumbers: true,
                   tabSize: 2,
-                  useWorker:false
+                  useWorker:false,
+                  showPrintMargin: false,
                 }}
                 value={value}
                 {...props}

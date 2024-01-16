@@ -5,9 +5,9 @@ import { EChartsOption } from "echarts";
 import { graphic } from "echarts";
 import axios from "axios";
 import AceEditor from "@/components/AceEditor";//导入editor
-import { Button, Tabs, Typography } from "antd";
+import { Tabs, Typography } from "antd";
 import './index.css'
-import { stringify } from "@/utils";
+import { stringify,parse } from "@/utils";//导入对象字符串互转函数
 
 const { Paragraph } = Typography; //导入复制组件
 const slideL = 15;//拉条宽度
@@ -120,17 +120,10 @@ const Home:React.FC = ()=>{
     const leftDistance = window.innerWidth - distance;
     //编辑更新函数
     function onChange(newValue) {
-      let singal = false;//判断是否为json格式报错
-      let temp:any;
       setInputValue(newValue);
-      try {
-        eval(`temp = ${newValue}`)
-      } catch (error) {
-        singal = true;
-        console.log(error);
-      }
+      let [singal,res] = parse(newValue);
       if(!singal){
-        updateOptions(temp);
+        updateOptions(res);
         setFail(false);
       }else{
         setFail(true);
@@ -190,7 +183,7 @@ const Home:React.FC = ()=>{
               maxWidth:'calc( 100% - 100px )',
               width:leftDistance,
             }}>
-              <EchartWrap options={options} wrap={wrapParent.current} 
+              <EchartWrap options={options} wrap={wrapParent.current} errorFn={setFail}
                 style={{
                   height:'calc( 100% - 50px )',
                   boxSizing:'border-box',

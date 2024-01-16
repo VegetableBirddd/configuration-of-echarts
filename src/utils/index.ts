@@ -27,6 +27,23 @@ const arrowReg = /=\>/
 const funcReg = /^function/
 const asyncFuncReg = /^async\s+function/
 const asyncGeneratorReg = /^async\s+\*function/
+/**
+ * 解析函数
+ * @param {string} str 
+ * @returns {Array}
+ */
+export function parse(str:string):[boolean,any] {
+    let temp:any;
+    let singal = false;//是否报错信号
+    try { //错误处理
+        eval(`temp = ${str}`); 
+    } catch (error) {
+        singal = true;
+        console.log(error);
+    }
+    
+    return [singal,temp];
+}
  
 /**
  * 主函数

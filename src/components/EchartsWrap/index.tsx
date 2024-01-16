@@ -10,7 +10,8 @@ interface Props {
     style?:React.CSSProperties,
     options:EChartsOption,
     className?:string,
-    wrap?:HTMLElement|null
+    wrap?:HTMLElement|null,
+    errorFn?:any
 }
 const EchartWrap:React.FC<Props> = (
     {
@@ -21,7 +22,8 @@ const EchartWrap:React.FC<Props> = (
         },
         options,
         className,
-        wrap
+        wrap,
+        errorFn
     }
 )=>{
     const [chart,setChart] = useState<EChartsType | null>(null);
@@ -71,9 +73,11 @@ const EchartWrap:React.FC<Props> = (
                 console.log(error)
             }
             if(!singal){
+                errorFn(false)
                 chart.setOption(options,true);
             }else {
                 //如果不行，只用重新实例化一个
+                errorFn(true)
                 testChart.dispose();
                 setTestChart(echarts.init(testChartRef.current));
             }

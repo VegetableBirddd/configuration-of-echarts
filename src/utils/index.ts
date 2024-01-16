@@ -1,3 +1,4 @@
+import * as echartsMoule from 'echarts';
 /**
  * 将数组或对象转化为字符串
  */
@@ -33,16 +34,17 @@ const asyncGeneratorReg = /^async\s+\*function/
  * @returns {Array}
  */
 export function parse(str:string):[boolean,any] {
-    let temp:any;
+    let resVal:any;//结果，包含多种类型
     let singal = false;//是否报错信号
+    const echarts = echartsMoule;//引入echarts，可以在属性中设置内置的函数，比如new echarts.graphic.LinearGradient
     try { //错误处理
-        eval(`temp = ${str}`); 
+        eval(`resVal = ${str}`); 
     } catch (error) {
         singal = true;
         console.log(error);
     }
     
-    return [singal,temp];
+    return [singal,resVal];
 }
  
 /**

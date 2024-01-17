@@ -214,7 +214,7 @@ const Home:React.FC = ()=>{
                   marginLeft:20
                 }}>{fail?'出错啦!':'成功渲染!'}</div>
                 <div className=" flex justify-between items-center">
-                  <span onClick={onRefresh}>重新渲染</span>
+                  <span className=" hover:cursor-pointer hover:text-blue-300 mr-1" onClick={onRefresh}>重新渲染</span>
                   <Paragraph
                     style={{
                       fontSize:20,

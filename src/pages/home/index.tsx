@@ -8,6 +8,7 @@ import AceEditor from "@/components/AceEditor";//导入editor
 import { Tabs, Typography } from "antd";
 import './index.css'
 import { stringify,parse } from "@/utils";//导入对象字符串互转函数
+import TreeEditor from "@/components/TreeEditor";
 
 const { Paragraph } = Typography; //导入复制组件
 const slideL = 15;//拉条宽度
@@ -273,8 +274,10 @@ const Home:React.FC = ()=>{
                       label:'快速添加属性',
                       key:'shortcut',
                       content:(
-                        <div>
-                          快捷添加内容。。。
+                        <div style={{
+                          height:'100%'
+                        }}>
+                          <TreeEditor />
                         </div>
                       )
                     },

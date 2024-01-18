@@ -4,3 +4,6 @@
 .home-tab .ant-tabs-nav {
     margin: 0;
 }
+.home-tab .ant-tabs-content-holder{
+    overflow: auto;
+}

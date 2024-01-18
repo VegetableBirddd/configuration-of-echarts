@@ -1,65 +1,10 @@
 import React, { useState } from 'react';
 import { Tree } from 'antd';
-import type { TreeDataNode } from 'antd';
-
-interface MyTreeDataNode extends TreeDataNode {
-  parentNode: null | string;
-  children?: MyTreeDataNode[]; //覆盖以前的children
-}
-
-const treeData:MyTreeDataNode[] = [
-  {
-    title: '0-0',
-    key: '0-0',
-    parentNode:null,
-    children: [
-      {
-        title: '0-0-0',
-        key: '0-0-0',
-        parentNode:'0-0',
-        children: [
-          { title: '0-0-0-0', key: '0-0-0-0',parentNode:'0-0-0' },
-          { title: '0-0-0-1', key: '0-0-0-1',parentNode:'0-0-0' },
-          { title: '0-0-0-2', key: '0-0-0-2',parentNode:'0-0-0' },
-        ],
-      },
-      {
-        title: '0-0-1',
-        key: '0-0-1',
-        parentNode:'0-0',
-        children: [
-          { title: '0-0-1-0', key: '0-0-1-0',parentNode:'0-0-1' },
-          { title: '0-0-1-1', key: '0-0-1-1',parentNode:'0-0-1' },
-          { title: '0-0-1-2', key: '0-0-1-2',parentNode:'0-0-1' },
-        ],
-      },
-      {
-        title: '0-0-2',
-        key: '0-0-2',
-        parentNode:'0-0',
-      },
-    ],
-  },
-  {
-    title: '0-1',
-    key: '0-1',
-    parentNode:null,
-    children: [
-      { title: '0-1-0', key: '0-1-0',parentNode:'0-1' },
-      { title: '0-1-1', key: '0-1-1',parentNode:'0-1' },
-      { title: '0-1-2', key: '0-1-2',parentNode:'0-1' },
-    ],
-  },
-  {
-    title: '0-2',
-    key: '0-2',
-    parentNode:null
-  },
-];
+import { treeData } from './data';
 
 const TreeEditor: React.FC = () => {
-  const [expandedKeys, setExpandedKeys] = useState<React.Key[]>(['0-0-0', '0-0-1']);
-  const [checkedKeys, setCheckedKeys] = useState<React.Key[]>(['0-0-0']);
+  const [expandedKeys, setExpandedKeys] = useState<React.Key[]>([]);
+  const [checkedKeys, setCheckedKeys] = useState<React.Key[]>([]);
   const [selectedKeys, setSelectedKeys] = useState<React.Key[]>([]);
   const [autoExpandParent, setAutoExpandParent] = useState<boolean>(true);
 

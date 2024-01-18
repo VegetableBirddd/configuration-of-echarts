@@ -265,7 +265,7 @@ const Home:React.FC = ()=>{
                           value={inputValue}
                           width={minRightLength.toString()}
                           style={{
-                            height:`100%`,
+                            height:`calc( 100vh - 45px )`,
                           }}
                         />
                       )
@@ -274,11 +274,7 @@ const Home:React.FC = ()=>{
                       label:'快速添加属性',
                       key:'shortcut',
                       content:(
-                        <div style={{
-                          height:'100%'
-                        }}>
-                          <TreeEditor />
-                        </div>
+                        <TreeEditor />
                       )
                     },
                     {

@@ -10,6 +10,7 @@ export const treeData:MyTreeDataNode[] = [
     title: 'title',
     key: 'title',
     parentNode:null,
+    checkable:false,
     children: [
       {
         title: 'id',
@@ -366,48 +367,56 @@ export const treeData:MyTreeDataNode[] = [
     title: 'legend',
     key: 'legend',
     parentNode:null,
+    checkable:false,
     children:[]
   },
   {
     title: 'grid',
     key: 'grid',
     parentNode:null,
+    checkable:false,
     children:[]
   },
   {
     title: 'xAxis',
     key: 'xAxis',
     parentNode:null,
+    checkable:false,
     children:[]
   },
   {
     title: 'yAxis',
     key: 'yAxis',
     parentNode:null,
+    checkable:false,
     children:[]
   },
   {
     title: 'tooltip',
     key: 'tooltip',
     parentNode:null,
+    checkable:false,
     children:[]
   },
   {
     title: 'toolbox',
     key: 'toolbox',
     parentNode:null,
+    checkable:false,
     children:[]
   },
   {
     title: 'dataset',
     key: 'dataset',
     parentNode:null,
+    checkable:false,
     children:[]
   },
   {
     title: 'series',
     key: 'series',
     parentNode:null,
+    checkable:false,
     children:[]
   },
 ];

@@ -375,6 +375,86 @@ export const treeData:MyTreeDataNode[] = [
             key: 'legend-id',
             parentKey:'legend',
         },
+        {
+          title: 'type',
+          key: 'legend-type',
+          parentKey:'legend',
+        },
+        {
+          title: 'show',
+          key: 'legend-show',
+          parentKey:'legend',
+        },
+        {
+          title: 'zlevel',
+          key: 'legend-zlevel',
+          parentKey:'legend',
+        },
+        {
+          title: 'z',
+          key: 'legend-z',
+          parentKey:'legend',
+        },
+        {
+          title: 'left',
+          key: 'legend-left',
+          parentKey:'legend',
+        },
+        {
+          title: 'top',
+          key: 'legend-top',
+          parentKey:'legend',
+        },
+        {
+          title: 'right',
+          key: 'legend-right',
+          parentKey:'legend',
+        },
+        {
+          title: 'bottom',
+          key: 'legend-bottom',
+          parentKey:'legend',
+        },
+        {
+          title: 'width',
+          key: 'legend-width',
+          parentKey:'legend',
+        },
+        {
+          title: 'height',
+          key: 'legend-height',
+          parentKey:'legend',
+        },
+        {
+          title: 'orient',
+          key: 'legend-orient',
+          parentKey:'legend',
+        },
+        {
+          title: 'align',
+          key: 'legend-align',
+          parentKey:'legend',
+        },
+        {
+          title: 'padding',
+          key: 'legend-padding',
+          parentKey:'legend',
+        },
+        {
+          title: 'itemGap',
+          key: 'legend-itemGap',
+          parentKey:'legend',
+        },
+        {
+          title: 'itemWidth',
+          key: 'legend-itemWidth',
+          parentKey:'legend',
+        },
+        {
+          title: 'itemHeight',
+          key: 'legend-itemHeight',
+          parentKey:'legend',
+        },
     ]
   },
   {

@@ -455,6 +455,96 @@ export const treeData:MyTreeDataNode[] = [
           key: 'legend-itemHeight',
           parentKey:'legend',
         },
+        {
+          title: 'itemStyle',
+          key: 'legend-itemStyle',
+          parentKey:'legend',
+        },
+        {
+          title: 'lineStyle',
+          key: 'legend-lineStyle',
+          parentKey:'legend',
+        },
+        {
+          title: 'symbolRotate',
+          key: 'legend-symbolRotate',
+          parentKey:'legend',
+        },
+        {
+          title: 'formatter',
+          key: 'legend-formatter',
+          parentKey:'legend',
+        },
+        {
+          title: 'selectedMode',
+          key: 'legend-selectedMode',
+          parentKey:'legend',
+        },
+        {
+          title: 'inactiveColor',
+          key: 'legend-inactiveColor',
+          parentKey:'legend',
+        },
+        {
+          title: 'inactiveBorderColor',
+          key: 'legend-inactiveBorderColor',
+          parentKey:'legend',
+        },
+        {
+          title: 'inactiveBorderWidth',
+          key: 'legend-inactiveBorderWidth',
+          parentKey:'legend',
+        },
+        {
+          title: 'selected',
+          key: 'legend-selected',
+          parentKey:'legend',
+        },
+        {
+          title: 'textStyle',
+          key: 'legend-textStyle',
+          parentKey:'legend',
+        },
+        {
+          title: 'tooltip',
+          key: 'legend-tooltip',
+          parentKey:'legend',
+        },
+        {
+          title: 'icon',
+          key: 'legend-icon',
+          parentKey:'legend',
+        },
+        {
+          title: 'data',
+          key: 'legend-data',
+          parentKey:'legend',
+        },
+        {
+          title: 'backgroundColor',
+          key: 'legend-backgroundColor',
+          parentKey:'legend',
+        },
+        {
+          title: 'borderColor',
+          key: 'legend-borderColor',
+          parentKey:'legend',
+        },
+        {
+          title: 'borderWidth',
+          key: 'legend-borderWidth',
+          parentKey:'legend',
+        },
+        {
+          title: 'borderRadius',
+          key: 'legend-borderRadius',
+          parentKey:'legend',
+        },
+        {
+          title: 'shadowBlur',
+          key: 'legend-borderRadius',
+          parentKey:'legend',
+        }
     ]
   },
   {

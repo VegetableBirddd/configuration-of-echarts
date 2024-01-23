@@ -542,7 +542,107 @@ export const treeData:MyTreeDataNode[] = [
         },
         {
           title: 'shadowBlur',
-          key: 'legend-borderRadius',
+          key: 'legend-shadowBlur',
+          parentKey:'legend',
+        },
+        {
+          title: 'shadowColor',
+          key: 'legend-shadowColor',
+          parentKey:'legend',
+        },
+        {
+          title: 'shadowOffsetX',
+          key: 'legend-shadowOffsetX',
+          parentKey:'legend',
+        },
+        {
+          title: 'shadowOffsetY',
+          key: 'legend-shadowOffsetY',
+          parentKey:'legend',
+        },
+        {
+          title: 'scrollDataIndex',
+          key: 'legend-scrollDataIndex',
+          parentKey:'legend',
+        },
+        {
+          title: 'pageButtonItemGap',
+          key: 'legend-pageButtonItemGap',
+          parentKey:'legend',
+        },
+        {
+          title: 'pageButtonGap',
+          key: 'legend-pageButtonGap',
+          parentKey:'legend',
+        },
+        {
+          title: 'pageButtonPosition',
+          key: 'legend-pageButtonPosition',
+          parentKey:'legend',
+        },
+        {
+          title: 'pageFormatter',
+          key: 'legend-pageFormatter',
+          parentKey:'legend',
+        },
+        {
+          title: 'pageIcons',
+          key: 'legend-pageIcons',
+          parentKey:'legend',
+        },
+        {
+          title: 'pageIconColor',
+          key: 'legend-pageIconColor',
+          parentKey:'legend',
+        },
+        {
+          title: 'pageIconInactiveColor',
+          key: 'legend-pageIconInactiveColor',
+          parentKey:'legend',
+        },
+        {
+          title: 'pageTextStyle',
+          key: 'legend-pageTextStyle',
+          parentKey:'legend',
+        },
+        {
+          title: 'animation',
+          key: 'legend-animation',
+          parentKey:'legend',
+        },
+        {
+          title: 'animationDurationUpdate',
+          key: 'legend-animationDurationUpdate',
+          parentKey:'legend',
+        },
+        {
+          title: 'emphasis',
+          key: 'legend-emphasis',
+          parentKey:'legend',
+        },
+        {
+          title: 'selector',
+          key: 'legend-selector',
+          parentKey:'legend',
+        },
+        {
+          title: 'selectorLabel',
+          key: 'legend-selectorLabel',
+          parentKey:'legend',
+        },
+        {
+          title: 'selectorPosition',
+          key: 'legend-selectorPosition',
+          parentKey:'legend',
+        },
+        {
+          title: 'selectorItemGap',
+          key: 'legend-selectorItemGap',
+          parentKey:'legend',
+        },
+        {
+          title: 'selectorButtonGap',
+          key: 'legend-selectorButtonGap',
           parentKey:'legend',
         }
     ]

@@ -542,17 +542,7 @@ export const treeData:MyTreeDataNode[] = [
         },
         {
           title: 'shadowBlur',
-          key: 'legend-shadowBlur',
-          parentKey:'legend',
-        },
-        {
-          title: 'shadowColor',
-          key: 'legend-shadowColor',
-          parentKey:'legend',
-        },
-        {
-          title: 'shadowOffsetX',
-          key: 'legend-shadowOffsetX',
+          key: 'legend-borderRadius',
           parentKey:'legend',
         }
     ]

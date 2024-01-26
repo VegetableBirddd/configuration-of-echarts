@@ -657,7 +657,103 @@ export const treeData:MyTreeDataNode[] = [
     key: 'grid',
     parentKey:null,
     checkable:false,
-    children:[]
+    children:[
+      {
+        title: 'id',
+        key: 'grid-id',
+        parentKey:'grid',
+      },
+      {
+        title: 'show',
+        key: 'grid-show',
+        parentKey:'grid',
+      },
+      {
+        title: 'zlevel',
+        key: 'grid-zlevel',
+        parentKey:'grid',
+      },
+      {
+        title: 'z',
+        key: 'grid-z',
+        parentKey:'grid',
+      },
+      {
+        title: 'left',
+        key: 'grid-left',
+        parentKey:'grid',
+      },
+      {
+        title: 'top',
+        key: 'grid-top',
+        parentKey:'grid',
+      },
+      {
+        title: 'right',
+        key: 'grid-right',
+        parentKey:'grid',
+      },
+      {
+        title: 'bottom',
+        key: 'grid-bottom',
+        parentKey:'grid',
+      },
+      {
+        title: 'width',
+        key: 'grid-width',
+        parentKey:'grid',
+      },
+      {
+        title: 'height',
+        key: 'grid-height',
+        parentKey:'grid',
+      },
+      {
+        title: 'containLabel',
+        key: 'grid-containLabel',
+        parentKey:'grid',
+      },
+      {
+        title: 'backgroundColor',
+        key: 'grid-backgroundColor',
+        parentKey:'grid',
+      },
+      {
+        title: 'borderColor',
+        key: 'grid-borderColor',
+        parentKey:'grid',
+      },
+      {
+        title: 'borderWidth',
+        key: 'grid-borderWidth',
+        parentKey:'grid',
+      },
+      {
+        title: 'shadowBlur',
+        key: 'grid-shadowBlur',
+        parentKey:'grid',
+      },
+      {
+        title: 'shadowColor',
+        key: 'grid-shadowColor',
+        parentKey:'grid',
+      },
+      {
+        title: 'shadowOffsetX',
+        key: 'grid-shadowOffsetX',
+        parentKey:'grid',
+      },
+      {
+        title: 'shadowOffsetY',
+        key: 'grid-shadowOffsetY',
+        parentKey:'grid',
+      },
+      {
+        title: 'tooltip',
+        key: 'grid-tooltip',
+        parentKey:'grid',
+      }
+    ]
   },
   {
     title: 'xAxis',

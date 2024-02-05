@@ -760,7 +760,98 @@ export const treeData:MyTreeDataNode[] = [
     key: 'xAxis',
     parentKey:null,
     checkable:false,
-    children:[]
+    children:[
+      {
+        title: 'id',
+        key: 'xAxis-id',
+        parentKey:'xAxis',
+      },
+      {
+        title: 'show',
+        key: 'xAxis-show',
+        parentKey:'xAxis',
+      },
+      {
+        title: 'gridIndex',
+        key: 'xAxis-gridIndex',
+        parentKey:'xAxis',
+      },
+      {
+        title: 'alignTicks',
+        key: 'xAxis-alignTicks',
+        parentKey:'xAxis',
+      },
+      {
+        title: 'pisition',
+        key: 'xAxis-pisition',
+        parentKey:'xAxis',
+      },
+      {
+        title: 'offset',
+        key: 'xAxis-offset',
+        parentKey:'xAxis',
+      },
+      {
+        title: 'type',
+        key: 'xAxis-type',
+        parentKey:'xAxis',
+      },
+      {
+        title: 'name',
+        key: 'xAxis-name',
+        parentKey:'xAxis',
+      },
+      {
+        title: 'nameLocation',
+        key: 'xAxis-nameLocation',
+        parentKey:'xAxis',
+      },
+      {
+        title: 'nameTextStyle',
+        key: 'xAxis-nameTextStyle',
+        parentKey:'xAxis',
+      },
+      {
+        title: 'nameGap',
+        key: 'xAxis-nameGap',
+        parentKey:'xAxis',
+      },
+      {
+        title: 'nameRotate',
+        key: 'xAxis-nameRotate',
+        parentKey:'xAxis',
+      },
+      {
+        title: 'nameTruncate',
+        key: 'xAxis-nameTruncate',
+        parentKey:'xAxis',
+      },
+      {
+        title: 'inverse',
+        key: 'xAxis-inverse',
+        parentKey:'xAxis',
+      },
+      {
+        title: 'boundaryGap',
+        key: 'xAxis-boundaryGap',
+        parentKey:'xAxis',
+      },
+      {
+        title: 'min',
+        key: 'xAxis-min',
+        parentKey:'xAxis',
+      },
+      {
+        title: 'max',
+        key: 'xAxis-max',
+        parentKey:'xAxis',
+      },
+      {
+        title: 'scale',
+        key: 'xAxis-scale',
+        parentKey:'xAxis',
+      },
+    ]
   },
   {
     title: 'yAxis',

@@ -39,22 +39,28 @@ const TreeEditor: React.FC = () => {
   };
 
   return (
-    <Tree
-      checkable
-      onExpand={onExpand}
-      expandedKeys={expandedKeys}
-      autoExpandParent={autoExpandParent}
-      onCheck={onCheck}
-      checkedKeys={checkedKeys}
-      onSelect={onSelect}
-      selectedKeys={selectedKeys}
-      treeData={storeData}
-      titleRender={(nodeData:any)=>{
-        return <div style={{height:nodeData.checked?50:20}}>
-          {nodeData.title}
-        </div>
-      }}
-    />
+    <>
+      <div>
+        
+      </div>
+      <Tree
+        checkable
+        onExpand={onExpand}
+        expandedKeys={expandedKeys}
+        autoExpandParent={autoExpandParent}
+        onCheck={onCheck}
+        checkedKeys={checkedKeys}
+        onSelect={onSelect}
+        selectedKeys={selectedKeys}
+        treeData={storeData}
+        titleRender={(nodeData:any)=>{
+          return <div style={{height:nodeData.checked?50:20}}>
+            {nodeData.title}
+          </div>
+        }}
+      />
+    </>
+    
   );
 };
 

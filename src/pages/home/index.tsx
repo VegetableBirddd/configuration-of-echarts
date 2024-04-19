@@ -9,6 +9,7 @@ import { Tabs, Typography } from "antd";
 import './index.css'
 import { stringify,parse } from "@/utils";//导入对象字符串互转函数
 import TreeEditor from "@/components/TreeEditor";
+import Example from "@/components/Example";
 
 const { Paragraph } = Typography; //导入复制组件
 const slideL = 15;//拉条宽度
@@ -277,9 +278,7 @@ const Home:React.FC = ()=>{
                       label:'好看示例',
                       key:'example',
                       content:(
-                        <>
-                          好看示例。。。
-                        </>
+                        <Example />
                       )
                     }
                   ].map(item=>{

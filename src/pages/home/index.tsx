@@ -178,10 +178,6 @@ const Home:React.FC = ()=>{
       };
     },[isDragging])
     useEffect(()=>{
-        async function init(){
-            let {data} = await axios.get('test/data');
-        }
-        init();
         onResizeupdate();
     },[]);
     return (

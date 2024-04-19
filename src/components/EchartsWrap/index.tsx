@@ -41,6 +41,13 @@ const EchartWrap:React.FC<Props> = (
         },
         0
     ),[chart])
+    useEffect(()=>{//设置echart监听事件
+        if(chart){
+            chart.on('click', function (params) {
+                console.log(params);
+            });
+        }
+    },[chart])
     useEffect(()=>{ //监听容器大小
         fn();
     },[size])

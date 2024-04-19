@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tree } from 'antd';
+import { CollapseProps, Tree,Collapse  } from 'antd';
 import { MyTreeDataNode, treeData } from './data';
 import { useImmer } from 'use-immer';
 function findByPos(data:MyTreeDataNode,pos:string){ // 通过位置寻找对象 '0-0-1'表示 data[0].children[0].children[1]
@@ -12,6 +12,24 @@ function findByPos(data:MyTreeDataNode,pos:string){ // 通过位置寻找对象 
   }
   return res;
 }
+const text = '属性'
+const items: CollapseProps['items'] = [
+  {
+    key: '1',
+    label: 'This is panel header 1',
+    children: <p>{text}</p>,
+  },
+  {
+    key: '2',
+    label: 'This is panel header 2',
+    children: <p>{text}</p>,
+  },
+  {
+    key: '3',
+    label: 'This is panel header 3',
+    children: <p>{text}</p>,
+  },
+];
 
 const TreeEditor: React.FC = () => {
   const [expandedKeys, setExpandedKeys] = useState<React.Key[]>([]);
@@ -43,7 +61,8 @@ const TreeEditor: React.FC = () => {
       <div>
         
       </div>
-      <Tree
+      <Collapse accordion items={items} />
+      {/* <Tree
         checkable
         onExpand={onExpand}
         expandedKeys={expandedKeys}
@@ -58,7 +77,7 @@ const TreeEditor: React.FC = () => {
             {nodeData.title}
           </div>
         }}
-      />
+      /> */}
     </>
     
   );

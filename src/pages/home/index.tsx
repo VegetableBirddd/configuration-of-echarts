@@ -122,7 +122,7 @@ const Home:React.FC = ()=>{
     const [fail,setFail] = useState(false);//报错信号变量
     const leftDistance = window.innerWidth - distance;
     //编辑更新函数
-    function onChange(newValue) {
+    function onChange(newValue) { //传进来的是字符串
       setInputValue(newValue);
       let [singal,res] = parse(newValue);
       if(!singal){
@@ -271,7 +271,10 @@ const Home:React.FC = ()=>{
                       label:'快速添加属性',
                       key:'shortcut',
                       content:(
-                        <TreeEditor />
+                        <TreeEditor
+                          options={options}
+                          onChange={onChange}
+                        />
                       )
                     },
                     {

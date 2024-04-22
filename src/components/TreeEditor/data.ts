@@ -1,9 +1,14 @@
 import type { TreeDataNode } from 'antd';
+//对showType做个说明 'none'：表示父级没有属性设置功能 | 'string'：使用input框展示 | 'number'：使用input.number展示 | 
+//      'array'：使用表格展示数组中多个值 | 'stringArray'：使用input框展示，逗号区分隔开 | 'select'：使用下拉框选择属性 |
+//      'color'：使用颜色选择器 | 'function'：使用文本框展示 | 'boolean'：使用switch展示
+type showType = 'none' | 'string' | 'number' | 'array' | 'stringArray' | 'select' | 'color' | 'function'
 
 export interface MyTreeDataNode extends TreeDataNode {
   checked?: boolean; //是否打√了
   parentKey: null | string;
   children?: MyTreeDataNode[]; //覆盖以前的children
+  type?:showType;
 }
 
 export const treeData:MyTreeDataNode[] = [
@@ -12,6 +17,7 @@ export const treeData:MyTreeDataNode[] = [
     key: 'title',
     parentKey:null,
     checkable:false,
+    type:'none',
     children: [
       {
         title: 'id',
@@ -369,6 +375,7 @@ export const treeData:MyTreeDataNode[] = [
     key: 'legend',
     parentKey:null,
     checkable:false,
+    type:'none',
     children:[
         {
             title: 'id',
@@ -657,6 +664,7 @@ export const treeData:MyTreeDataNode[] = [
     key: 'grid',
     parentKey:null,
     checkable:false,
+    type:'none',
     children:[
       {
         title: 'id',
@@ -760,6 +768,7 @@ export const treeData:MyTreeDataNode[] = [
     key: 'xAxis',
     parentKey:null,
     checkable:false,
+    type:'none',
     children:[
       {
         title: 'id',
@@ -858,6 +867,7 @@ export const treeData:MyTreeDataNode[] = [
     key: 'yAxis',
     parentKey:null,
     checkable:false,
+    type:'none',
     children:[]
   },
   {
@@ -865,6 +875,7 @@ export const treeData:MyTreeDataNode[] = [
     key: 'tooltip',
     parentKey:null,
     checkable:false,
+    type:'none',
     children:[]
   },
   {
@@ -872,6 +883,7 @@ export const treeData:MyTreeDataNode[] = [
     key: 'toolbox',
     parentKey:null,
     checkable:false,
+    type:'none',
     children:[]
   },
   {
@@ -879,6 +891,7 @@ export const treeData:MyTreeDataNode[] = [
     key: 'dataset',
     parentKey:null,
     checkable:false,
+    type:'none',
     children:[]
   },
   {
@@ -886,6 +899,7 @@ export const treeData:MyTreeDataNode[] = [
     key: 'series',
     parentKey:null,
     checkable:false,
+    type:'none',
     children:[]
   },
 ];

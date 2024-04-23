@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { CollapseProps, theme ,Collapse, Input, Typography, InputNumber, Switch, Select, ColorPicker  } from 'antd';
 import { MyTreeDataNode, treeData } from './data';
 import { useImmer } from 'use-immer';
-import { CaretRightOutlined } from '@ant-design/icons';
+import { CaretRightOutlined,PlusCircleOutlined } from '@ant-design/icons';
 import './index.css'
 import { debounce } from 'lodash' //引入防抖函数
 
@@ -43,7 +43,14 @@ function getItems(data,panelStyle,options={}){ //根据data渲染样式
         key:v.key,
         label:v.title,
         children: showItem(v.children,options),
-        style:panelStyle
+        style:panelStyle,
+        extra:<PlusCircleOutlined
+        onClick={(event) => {
+          // If you don't want click extra trigger collapse, you can prevent this:
+          event.stopPropagation();
+          console.log(1)
+        }}
+      />
       })
     }
     

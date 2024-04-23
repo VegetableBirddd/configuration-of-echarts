@@ -4,6 +4,7 @@ import { MyTreeDataNode, treeData } from './data';
 import { useImmer } from 'use-immer';
 import { CaretRightOutlined } from '@ant-design/icons';
 import './index.css'
+import { debounce } from 'lodash' //引入防抖函数
 
 interface ITreeEditor {
   onChange:(newValue: any) => void;
@@ -49,28 +50,28 @@ function getItems(data,panelStyle,options={}){ //根据data渲染样式
 
   return items;
 }
-function handleChange(type,value){
-  console.log(type,value);
-}
+const handleChange = debounce((key,value)=>{
+  console.log(key,value);
+},500)
 
 function typeItem(node){
   if(node.type){
     switch (node.type) {
       case 'string':
-        return <Input placeholder={node.title} onChange={(value)=>{
-          handleChange(node.type,value)
+        return <Input placeholder={node.title} onChange={(e)=>{
+          handleChange(node.key,e.target.value)
         }}/>;
       case 'number':
         return <InputNumber placeholder={node.title} onChange={(value)=>{
-          handleChange(node.type,value)
+          handleChange(node.key,value)
         }}/>;
       case 'array':
         return <Input placeholder={node.title} onChange={(value)=>{
-          handleChange(node.type,value)
+          handleChange(node.key,value)
         }}/>;
       case 'stringArray':
         return <Input placeholder={node.title} onChange={(value)=>{
-          handleChange(node.type,value)
+          handleChange(node.key,value)
         }}/>;
       case 'select':
         return <Select
@@ -84,20 +85,20 @@ function typeItem(node){
             }
           })}
           onChange={(value)=>{
-            handleChange(node.type,value)
+            handleChange(node.key,value)
           }}
         />;
       case 'color':
         return <ColorPicker defaultValue="#1677ff" showText onChange={(value)=>{
-          handleChange(node.type,value)
+          handleChange(node.key,value.toRgbString())
         }}/>;
       case 'function':
         return <Input.TextArea placeholder={node.title} onChange={(value)=>{
-          handleChange(node.type,value)
+          handleChange(node.key,value)
         }}/>;
       case 'boolean':
         return <Switch checkedChildren="开启" unCheckedChildren="关闭" onChange={(value)=>{
-          handleChange(node.type,value)
+          handleChange(node.key,value)
         }}/>;
 
     }

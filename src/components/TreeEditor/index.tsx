@@ -10,13 +10,14 @@ interface ITreeEditor {
   onChange:(newValue: any) => void;
   options:object;
 }
-function findByPos(data:MyTreeDataNode,pos:string){ // 通过位置寻找对象 '0-0-1'表示 data[0].children[0].children[1]
-  let arr = pos.split('-');// [0,0,1]
-  let index = 1;
+function findByPos(data,pos:string){ //通过传入的配置值Options和当前位置，来获取值
+  let arr = pos.split('-');// [title,id]
+  let index = 0;
   let res = data[arr[index++]];
-  while(index<arr.length){
-    let num = arr[index++];
-    res = res.children[num];
+  for(;index<arr.length;index++){
+    if(res!==undefined){
+      res = res[arr[index]]
+    }
   }
   return res;
 }
@@ -41,7 +42,7 @@ function getItems(data,panelStyle,options={}){ //根据data渲染样式
       items.push({
         key:v.key,
         label:v.title,
-        children: showItem(v.children),
+        children: showItem(v.children,options),
         style:panelStyle
       })
     }
@@ -50,15 +51,16 @@ function getItems(data,panelStyle,options={}){ //根据data渲染样式
 
   return items;
 }
-const handleChange = debounce((key,value)=>{
+
+const handleChange = debounce((key,value)=>{ //统一表单改变事件，调用改变options函数
   console.log(key,value);
 },500)
 
-function typeItem(node){
+function typeItem(node,options){//通过不同类型渲染不同值
   if(node.type){
     switch (node.type) {
       case 'string':
-        return <Input placeholder={node.title} onChange={(e)=>{
+        return <Input placeholder={node.title} defaultValue={findByPos(options,node.key)} onChange={(e)=>{
           handleChange(node.key,e.target.value)
         }}/>;
       case 'number':
@@ -106,7 +108,7 @@ function typeItem(node){
   return null;
 }
 
-function showItem(nodes:any[]){
+function showItem(nodes:any[],options){
   let noChildArray:any[] = [];
   let childArray:any[] = [];
   for(let i=0;i<nodes.length;i++){
@@ -115,7 +117,7 @@ function showItem(nodes:any[]){
       noChildArray.push(
         <div style={{marginBottom:5}}>
           <Typography.Title level={5}>{node.title}</Typography.Title>
-          {typeItem(node)}
+          {typeItem(node,options)}
         </div>
       )
     }else{
@@ -145,8 +147,6 @@ function showItem(nodes:any[]){
         />
     }
   </>
-  
-  
 }
 
 const TreeEditor: React.FC<ITreeEditor> = ({

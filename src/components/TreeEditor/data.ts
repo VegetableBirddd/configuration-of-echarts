@@ -2,13 +2,14 @@ import type { TreeDataNode } from 'antd';
 //对showType做个说明 'none'：表示父级没有属性设置功能 | 'string'：使用input框展示 | 'number'：使用input.number展示 | 
 //      'array'：使用表格展示数组中多个值 | 'stringArray'：使用input框展示，逗号区分隔开 | 'select'：使用下拉框选择属性 |
 //      'color'：使用颜色选择器 | 'function'：使用文本框展示 | 'boolean'：使用switch展示
-type showType = 'none' | 'string' | 'number' | 'array' | 'stringArray' | 'select' | 'color' | 'function'
+type showType = 'none' | 'string' | 'number' | 'array' | 'stringArray' | 'select' | 'color' | 'function' | 'boolean'
 
 export interface MyTreeDataNode extends TreeDataNode {
   checked?: boolean; //是否打√了
   parentKey: null | string;
   children?: MyTreeDataNode[]; //覆盖以前的children
   type?:showType;
+  selectOptions?:string[];
 }
 
 export const treeData:MyTreeDataNode[] = [
@@ -23,26 +24,32 @@ export const treeData:MyTreeDataNode[] = [
         title: 'id',
         key: 'title-id',
         parentKey:'title',
+        type:'string',
       },
       {
         title: 'show',
         key: 'title-show',
         parentKey:'title',
+        type:'boolean'
       },
       {
         title: 'text',
         key: 'title-text',
         parentKey:'title',
+        type:'string'
       },
       {
         title: 'link',
         key: 'title-link',
         parentKey:'title',
+        type:'string'
       },
       {
         title: 'target',
         key: 'title-target',
         parentKey:'title',
+        type:'select',
+        selectOptions:['self','blank']
       },
       {
         title: 'textStyle',
@@ -53,94 +60,117 @@ export const treeData:MyTreeDataNode[] = [
                 title: 'color',
                 key: 'title-textStyle-color',
                 parentKey:'title-textStyle',
+                type:'color'
             },
             {
                 title: 'fontStyle',
                 key: 'title-textStyle-fontStyle',
                 parentKey:'title-textStyle',
+                type:'select',
+                selectOptions:['normal','italic','oblique']
             },
             {
                 title: 'fontWeight',
                 key: 'title-textStyle-fontWeight',
                 parentKey:'title-textStyle',
+                type:'select',
+                selectOptions:['normal','bold','bolder','lighter','100','200','300','400','500','600']
             },
             {
                 title: 'fontFamily',
                 key: 'title-textStyle-fontFamily',
                 parentKey:'title-textStyle',
+                type:'select',
+                selectOptions:['sans-serif','serif','monospace','Arial','Courier New','Microsoft YaHei']
             },
             {
                 title: 'fontSize',
                 key: 'title-textStyle-fontSize',
                 parentKey:'title-textStyle',
+                type:'number'
             },
             {
                 title: 'lineHeight',
                 key: 'title-textStyle-lineHeight',
                 parentKey:'title-textStyle',
+                type:'number'
             },
             {
                 title: 'width',
                 key: 'title-textStyle-width',
                 parentKey:'title-textStyle',
+                type:'number'
             },
             {
                 title: 'height',
                 key: 'title-textStyle-height',
                 parentKey:'title-textStyle',
+                type:'number'
             },
             {
                 title: 'textBorderColor',
                 key: 'title-textStyle-textBorderColor',
                 parentKey:'title-textStyle',
+                type:'color'
             },
             {
                 title: 'textBorderWidth',
                 key: 'title-textStyle-textBorderWidth',
                 parentKey:'title-textStyle',
+                type:'number'
             },
             {
                 title: 'textBorderType',
                 key: 'title-textStyle-textBorderType',
                 parentKey:'title-textStyle',
+                type:'select',
+                selectOptions:['solid','dashed','dotted']
             },
             {
                 title: 'textBorderDashOffset',
                 key: 'title-textStyle-textBorderDashOffset',
                 parentKey:'title-textStyle',
+                type:'number'
             },
             {
                 title: 'textShadowColor',
                 key: 'title-textStyle-textShadowColor',
                 parentKey:'title-textStyle',
+                type:'color'
             },
             {
                 title: 'textShadowBlur',
                 key: 'title-textStyle-textShadowBlur',
                 parentKey:'title-textStyle',
+                type:'number'
             },
             {
                 title: 'textShadowOffsetX',
                 key: 'title-textStyle-textShadowOffsetX',
                 parentKey:'title-textStyle',
+                type:'number'
             },
             {
                 title: 'textShadowOffsetY',
                 key: 'title-textStyle-textShadowOffsetY',
                 parentKey:'title-textStyle',
+                type:'number'
             },
             {
                 title: 'overflow',
                 key: 'title-textStyle-overflow',
                 parentKey:'title-textStyle',
+                type:'select',
+                selectOptions:['none','truncate','break','breakAll']
             },
             {
                 title: 'ellipsis',
                 key: 'title-textStyle-ellipsis',
                 parentKey:'title-textStyle',
+                type:'string'
             },
             {
-                title: 'rich',
+                title: 'rich-要和fo联动',
                 key: 'title-textStyle-rich',
                 parentKey:'title-textStyle',
             },
@@ -150,16 +180,20 @@ export const treeData:MyTreeDataNode[] = [
         title: 'subtext',
         key: 'title-subtext',
         parentKey:'title',
+        type:'string'
       },
       {
         title: 'sublink',
         key: 'title-sublink',
         parentKey:'title',
+        type:'string'
       },
       {
         title: 'subtarget',
         key: 'title-subtarget',
         parentKey:'title',
+        type:'select',
+        selectOptions:['self','blank']
       },
       {
         title: 'subtextStyle',
@@ -170,101 +204,128 @@ export const treeData:MyTreeDataNode[] = [
                 title: 'color',
                 key: 'title-subtextStyle-color',
                 parentKey:'title-subtextStyle',
+                type:'color'
             },
             {
                 title: 'fontStyle',
                 key: 'title-subtextStyle-fontStyle',
                 parentKey:'title-subtextStyle',
+                type:'select',
+                selectOptions:['normal','italic','oblique']
             },
             {
                 title: 'fontWeight',
                 key: 'title-subtextStyle-fontWeight',
                 parentKey:'title-subtextStyle',
+                type:'select',
+                selectOptions:['normal','bold','bolder','lighter','100','200','300','400','500','600']
             },
             {
                 title: 'fontFamily',
                 key: 'title-subtextStyle-fontFamily',
                 parentKey:'title-subtextStyle',
+                type:'select',
+                selectOptions:['sans-serif','serif','monospace','Arial','Courier New','Microsoft YaHei']
             },
             {
                 title: 'fontSize',
                 key: 'title-subtextStyle-fontSize',
                 parentKey:'title-subtextStyle',
+                type:'number'
             },
             {
                 title: 'align',
                 key: 'title-subtextStyle-align',
                 parentKey:'title-subtextStyle',
+                type:'select',
+                selectOptions:['left','center','right']
             },
             {
                 title: 'verticalAlign',
                 key: 'title-subtextStyle-verticalAlign',
                 parentKey:'title-subtextStyle',
+                type:'select',
+                selectOptions:['top','middle','bottom']
             },
             {
                 title: 'lineHeight',
                 key: 'title-subtextStyle-lineHeight',
                 parentKey:'title-subtextStyle',
+                type:'number'
             },
             {
                 title: 'width',
                 key: 'title-subtextStyle-width',
                 parentKey:'title-subtextStyle',
+                type:'number'
             },
             {
                 title: 'height',
                 key: 'title-subtextStyle-height',
                 parentKey:'title-subtextStyle',
+                type:'number'
             },
             {
                 title: 'textBorderColor',
                 key: 'title-subtextStyle-textBorderColor',
                 parentKey:'title-subtextStyle',
+                type:'color'
             },
             {
                 title: 'textBorderWidth',
                 key: 'title-subtextStyle-textBorderWidth',
                 parentKey:'title-subtextStyle',
+                type:'number'
             },
             {
                 title: 'textBorderType',
                 key: 'title-subtextStyle-textBorderType',
                 parentKey:'title-subtextStyle',
+                type:'select',
+                selectOptions:['solid','dashed','dotted']
             },
             {
                 title: 'textBorderDashOffset',
                 key: 'title-subtextStyle-textBorderDashOffset',
                 parentKey:'title-subtextStyle',
+                type:'number'
             },
             {
                 title: 'textShadowColor',
                 key: 'title-subtextStyle-textShadowColor',
                 parentKey:'title-subtextStyle',
+                type:'color'
             },
             {
                 title: 'textShadowBlur',
                 key: 'title-subtextStyle-textShadowBlur',
                 parentKey:'title-subtextStyle',
+                type:'number'
             },
             {
                 title: 'textShadowOffsetX',
                 key: 'title-subtextStyle-textShadowOffsetX',
                 parentKey:'title-subtextStyle',
+                type:'number'
             },
             {
                 title: 'textShadowOffsetY',
                 key: 'title-subtextStyle-textShadowOffsetY',
                 parentKey:'title-subtextStyle',
+                type:'number'
             },
             {
                 title: 'overflow',
                 key: 'title-subtextStyle-overflow',
                 parentKey:'title-subtextStyle',
+                type:'select',
+                selectOptions:['none','truncate','break','breakAll']
             },
             {
                 title: 'ellipsis',
                 key: 'title-subtextStyle-ellipsis',
                 parentKey:'title-subtextStyle',
+                type:'string'
             },
             {
                 title: 'rich',
@@ -277,96 +338,117 @@ export const treeData:MyTreeDataNode[] = [
         title: 'textAlign',
         key: 'title-textAlign',
         parentKey:'title',
+        type:'select',
+        selectOptions:['auto','left','right','center']
       },
       {
         title: 'textVerticalAlign',
         key: 'title-textVerticalAlign',
         parentKey:'title',
+        type:'select',
+        selectOptions:['auto','top','bottom','middle']
       },
       {
         title: 'triggerEvent',
         key: 'title-triggerEvent',
         parentKey:'title',
+        type:'boolean'
       },
       {
         title: 'padding',
         key: 'title-padding',
         parentKey:'title',
+        type:'stringArray'
       },
       {
         title: 'itemGap',
         key: 'title-itemGap',
         parentKey:'title',
+        type:'number'
       },
       {
         title: 'zlevel',
         key: 'title-zlevel',
         parentKey:'title',
+        type:'number'
       },
       {
         title: 'z',
         key: 'title-z',
         parentKey:'title',
+        type:'number'
       },
       {
         title: 'left',
         key: 'title-left',
         parentKey:'title',
+        type:'string'
       },
       {
         title: 'top',
         key: 'title-top',
         parentKey:'title',
+        type:'string'
       },
       {
         title: 'right',
         key: 'title-right',
         parentKey:'title',
+        type:'string'
       },
       {
         title: 'bottom',
         key: 'title-bottom',
         parentKey:'title',
+        type:'string'
       },
       {
         title: 'backgroundColor',
         key: 'title-backgroundColor',
         parentKey:'title',
+        type:'color'
       },
       {
         title: 'borderColor',
         key: 'title-borderColor',
         parentKey:'title',
+        type:'color'
       },
       {
         title: 'borderWidth',
         key: 'title-borderWidth',
         parentKey:'title',
+        type:'number'
       },
       {
         title: 'borderRadius',
         key: 'title-borderRadius',
         parentKey:'title',
+        type:'stringArray'
       },
       {
         title: 'shadowBlur',
         key: 'title-shadowBlur',
         parentKey:'title',
+        type:'number'
       },
       {
         title: 'shadowColor',
         key: 'title-shadowColor',
         parentKey:'title',
+        type:'color'
       },
       {
         title: 'shadowOffsetX',
         key: 'title-shadowOffsetX',
         parentKey:'title',
+        type:'number'
       },
       {
         title: 'shadowOffsetY',
         key: 'title-shadowOffsetY',
         parentKey:'title',
+        type:'number'
       },
     ],
   },

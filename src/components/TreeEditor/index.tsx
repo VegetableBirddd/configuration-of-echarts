@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CollapseProps, theme ,Collapse, Input, Typography  } from 'antd';
+import { CollapseProps, theme ,Collapse, Input, Typography, InputNumber, Switch, Select, ColorPicker  } from 'antd';
 import { MyTreeDataNode, treeData } from './data';
 import { useImmer } from 'use-immer';
 import { CaretRightOutlined } from '@ant-design/icons';
@@ -36,49 +36,116 @@ function getItems(data,panelStyle,options={}){ //根据data渲染样式
         backgroundColor:'#00000008'
       }
     }
-
-    items.push({
-      key:v.key,
-      label:v.title,
-      children:<ShowItem />,
-      style:panelStyle
-    })
+    if(v.children){
+      items.push({
+        key:v.key,
+        label:v.title,
+        children: showItem(v.children),
+        style:panelStyle
+      })
+    }
+    
   }
 
   return items;
 }
+function handleChange(type,value){
+  console.log(type,value);
+}
 
-const ShowItem:React.FC = ()=>{
-  return <div style={{
+function typeItem(node){
+  if(node.type){
+    switch (node.type) {
+      case 'string':
+        return <Input placeholder={node.title} onChange={(value)=>{
+          handleChange(node.type,value)
+        }}/>;
+      case 'number':
+        return <InputNumber placeholder={node.title} onChange={(value)=>{
+          handleChange(node.type,value)
+        }}/>;
+      case 'array':
+        return <Input placeholder={node.title} onChange={(value)=>{
+          handleChange(node.type,value)
+        }}/>;
+      case 'stringArray':
+        return <Input placeholder={node.title} onChange={(value)=>{
+          handleChange(node.type,value)
+        }}/>;
+      case 'select':
+        return <Select
+          allowClear
+          placeholder={node.title}
+          style={{ width: '100%' }}
+          options={node.selectOptions.map(item=>{
+            return {
+              value:item,
+              label:item
+            }
+          })}
+          onChange={(value)=>{
+            handleChange(node.type,value)
+          }}
+        />;
+      case 'color':
+        return <ColorPicker defaultValue="#1677ff" showText onChange={(value)=>{
+          handleChange(node.type,value)
+        }}/>;
+      case 'function':
+        return <Input.TextArea placeholder={node.title} onChange={(value)=>{
+          handleChange(node.type,value)
+        }}/>;
+      case 'boolean':
+        return <Switch checkedChildren="开启" unCheckedChildren="关闭" onChange={(value)=>{
+          handleChange(node.type,value)
+        }}/>;
+
+    }
+  } 
+  return null;
+}
+
+function showItem(nodes:any[]){
+  let noChildArray:any[] = [];
+  let childArray:any[] = [];
+  for(let i=0;i<nodes.length;i++){
+    let node = nodes[i];
+    if(!node.children){ //没有children
+      noChildArray.push(
+        <div style={{marginBottom:5}}>
+          <Typography.Title level={5}>{node.title}</Typography.Title>
+          {typeItem(node)}
+        </div>
+      )
+    }else{
+      childArray.push(node)
+    }
+  }
+  return <>
+    <div style={{
       display:'grid',
       gridTemplateColumns:'repeat(auto-fill,minmax(160px,1fr))',
       gap:'10px'
     }} >
-      <div>
-        <Typography.Title level={5}>Exceed Max</Typography.Title>
-        <Input placeholder="Basic usage" />
-      </div>
-      <div>
-        <Typography.Title level={5}>Exceed Max</Typography.Title>
-        <Input.TextArea placeholder="Basic usage" />
-      </div>
-      <div>
-        <Typography.Title level={5}>Exceed Max</Typography.Title>
-        <Input.TextArea placeholder="Basic usage" />
-      </div>
-      <div>
-        <Typography.Title level={5}>Exceed Max</Typography.Title>
-        <Input placeholder="Basic usage" />
-      </div>
-      <div>
-        <Typography.Title level={5}>Exceed Max</Typography.Title>
-        <Input placeholder="Basic usage" />
-      </div>
-      <div>
-        <Typography.Title level={5}>Exceed Max</Typography.Title>
-        <Input.TextArea placeholder="Basic usage" />
-      </div>
-  </div>
+      {noChildArray}
+    </div>
+    {
+        <Collapse 
+          className='tree-editor'
+          bordered={false}
+          accordion 
+          items={getItems(childArray,{
+            marginBottom: 6,
+            background: '#00000008',
+            borderRadius: 8,
+          })}
+          style={{ background: '#00000008' }}
+          expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
+        />
+    }
+  </>
+  
+  
 }
 
 const TreeEditor: React.FC<ITreeEditor> = ({

@@ -463,131 +463,396 @@ export const treeData:MyTreeDataNode[] = [
             title: 'id',
             key: 'legend-id',
             parentKey:'legend',
+            type:'string'
         },
         {
           title: 'type',
           key: 'legend-type',
           parentKey:'legend',
+          type:'select',
+          selectOptions:['plain','scroll']
         },
         {
           title: 'show',
           key: 'legend-show',
           parentKey:'legend',
+          type:'boolean',
         },
         {
           title: 'zlevel',
           key: 'legend-zlevel',
           parentKey:'legend',
+          type:'number'
         },
         {
           title: 'z',
           key: 'legend-z',
           parentKey:'legend',
+          type:'number'
         },
         {
           title: 'left',
           key: 'legend-left',
           parentKey:'legend',
+          type:'string'
         },
         {
           title: 'top',
           key: 'legend-top',
           parentKey:'legend',
+          type:'string'
         },
         {
           title: 'right',
           key: 'legend-right',
           parentKey:'legend',
+          type:'string'
         },
         {
           title: 'bottom',
           key: 'legend-bottom',
           parentKey:'legend',
+          type:'string'
         },
         {
           title: 'width',
           key: 'legend-width',
           parentKey:'legend',
+          type:'string'
         },
         {
           title: 'height',
           key: 'legend-height',
           parentKey:'legend',
+          type:'string'
         },
         {
           title: 'orient',
           key: 'legend-orient',
           parentKey:'legend',
+          type:'select',
+          selectOptions:['horizontal','vertical']
         },
         {
           title: 'align',
           key: 'legend-align',
           parentKey:'legend',
+          type:'select',
+          selectOptions:['auto','left','right']
         },
         {
           title: 'padding',
           key: 'legend-padding',
           parentKey:'legend',
+          type:'stringArray'
         },
         {
           title: 'itemGap',
           key: 'legend-itemGap',
           parentKey:'legend',
+          type:'number'
         },
         {
           title: 'itemWidth',
           key: 'legend-itemWidth',
           parentKey:'legend',
+          type:'number'
         },
         {
           title: 'itemHeight',
           key: 'legend-itemHeight',
           parentKey:'legend',
+          type:'number'
         },
         {
           title: 'itemStyle',
           key: 'legend-itemStyle',
           parentKey:'legend',
+          children:[
+            {
+              title:'color',
+              key:'legend-itemStyle-color',
+              parentKey:'legend-itemStyle',
+              type:'color'
+            },
+            {
+              title:'borderColor',
+              key:'legend-itemStyle-borderColor',
+              parentKey:'legend-itemStyle',
+              type:'color'
+            },
+            {
+              title:'borderWidth',
+              key:'legend-itemStyle-borderWidth',
+              parentKey:'legend-itemStyle',
+              type:'number'
+            },
+            {
+              title:'borderType',
+              key:'legend-itemStyle-borderType',
+              parentKey:'legend-itemStyle',
+              type:'select',
+              selectOptions:['solid','dashed','dotted']
+            },
+            {
+              title:'borderDashOffset',
+              key:'legend-itemStyle-borderDashOffset',
+              parentKey:'legend-itemStyle',
+              type:'number'
+            },
+            {
+              title:'borderCap',
+              key:'legend-itemStyle-borderCap',
+              parentKey:'legend-itemStyle',
+              type:'select',
+              selectOptions:['butt','round','square']
+            },
+            {
+              title:'borderJoin',
+              key:'legend-itemStyle-borderJoin',
+              parentKey:'legend-itemStyle',
+              type:'select',
+              selectOptions:['bevel','round','miter']
+            },
+            {
+              title:'borderMiterLimit',
+              key:'legend-itemStyle-borderMiterLimit',
+              parentKey:'legend-itemStyle',
+              type:'number',
+            },
+            {
+              title:'shadowBlur',
+              key:'legend-itemStyle-shadowBlur',
+              parentKey:'legend-itemStyle',
+              type:'number',
+            },
+            {
+              title:'shadowColor',
+              key:'legend-itemStyle-shadowColor',
+              parentKey:'legend-itemStyle',
+              type:'color',
+            },
+            {
+              title:'shadowOffsetX',
+              key:'legend-itemStyle-shadowOffsetX',
+              parentKey:'legend-itemStyle',
+              type:'number',
+            },
+            {
+              title:'shadowOffsetY',
+              key:'legend-itemStyle-shadowOffsetY',
+              parentKey:'legend-itemStyle',
+              type:'number',
+            },
+            {
+              title:'opacity',
+              key:'legend-itemStyle-opacity',
+              parentKey:'legend-itemStyle',
+              type:'number',
+            },
+            {
+              title:'decal',
+              key:'legend-itemStyle-decal',
+              parentKey:'legend-itemStyle',
+              children:[
+                {
+                  title:'symbol',
+                  key:'legend-itemStyle-decal-symbol',
+                  parentKey:'legend-itemStyle-decal',
+                  type:'string'
+                },
+                {
+                  title:'symbolSize',
+                  key:'legend-itemStyle-decal-symbolSize',
+                  parentKey:'legend-itemStyle-decal',
+                  type:'number'
+                },
+                {
+                  title:'symbolKeepAspect',
+                  key:'legend-itemStyle-decal-symbolKeepAspect',
+                  parentKey:'legend-itemStyle-decal',
+                  type:'boolean'
+                },
+                {
+                  title:'color',
+                  key:'legend-itemStyle-decal-color',
+                  parentKey:'legend-itemStyle-decal',
+                  type:'color'
+                },
+                {
+                  title:'backgroundColor',
+                  key:'legend-itemStyle-decal-backgroundColor',
+                  parentKey:'legend-itemStyle-decal',
+                  type:'color'
+                },
+                {
+                  title:'dashArrayX',
+                  key:'legend-itemStyle-decal-dashArrayX',
+                  parentKey:'legend-itemStyle-decal',
+                  type:'string'
+                },
+                {
+                  title:'dashArrayY',
+                  key:'legend-itemStyle-decal-dashArrayY',
+                  parentKey:'legend-itemStyle-decal',
+                  type:'string'
+                },
+                {
+                  title:'rotation',
+                  key:'legend-itemStyle-decal-rotation',
+                  parentKey:'legend-itemStyle-decal',
+                  type:'number'
+                },
+                {
+                  title:'maxTileWidth',
+                  key:'legend-itemStyle-decal-maxTileWidth',
+                  parentKey:'legend-itemStyle-decal',
+                  type:'number'
+                },
+                {
+                  title:'maxTileHeight',
+                  key:'legend-itemStyle-decal-maxTileHeight',
+                  parentKey:'legend-itemStyle-decal',
+                  type:'number'
+                },
+              ]
+            },
+          ]
         },
         {
           title: 'lineStyle',
           key: 'legend-lineStyle',
           parentKey:'legend',
+          children:[
+            {
+              title:'color',
+              key:'legend-lineStyle-color',
+              parentKey:'legend-lineStyle',
+              type:'color'
+            },
+            {
+              title:'width',
+              key:'legend-lineStyle-width',
+              parentKey:'legend-lineStyle',
+              type:'number'
+            },
+            {
+              title:'type',
+              key:'legend-lineStyle-type',
+              parentKey:'legend-lineStyle',
+              type:'string'
+            },
+            {
+              title:'dashOffset',
+              key:'legend-lineStyle-dashOffset',
+              parentKey:'legend-lineStyle',
+              type:'number'
+            },
+            {
+              title:'cap',
+              key:'legend-lineStyle-cap',
+              parentKey:'legend-lineStyle',
+              type:'select',
+              selectOptions:['butt','round','square']
+            },
+            {
+              title:'join',
+              key:'legend-lineStyle-join',
+              parentKey:'legend-lineStyle',
+              type:'select',
+              selectOptions:['bevel','round','miter']
+            },
+            {
+              title:'miterLimit',
+              key:'legend-lineStyle-miterLimit',
+              parentKey:'legend-lineStyle',
+              type:'number'
+            },
+            {
+              title:'shadowBlur',
+              key:'legend-lineStyle-shadowBlur',
+              parentKey:'legend-lineStyle',
+              type:'number'
+            },
+            {
+              title:'shadowColor',
+              key:'legend-lineStyle-shadowColor',
+              parentKey:'legend-lineStyle',
+              type:'color'
+            },
+            {
+              title:'shadowOffsetX',
+              key:'legend-lineStyle-shadowOffsetX',
+              parentKey:'legend-lineStyle',
+              type:'number'
+            },
+            {
+              title:'shadowOffsetY',
+              key:'legend-lineStyle-shadowOffsetY',
+              parentKey:'legend-lineStyle',
+              type:'number'
+            },
+            {
+              title:'opacity',
+              key:'legend-lineStyle-opacity',
+              parentKey:'legend-lineStyle',
+              type:'number'
+            },
+            {
+              title:'inactiveColor',
+              key:'legend-lineStyle-inactiveColor',
+              parentKey:'legend-lineStyle',
+              type:'color'
+            },
+            {
+              title:'inactiveWidth',
+              key:'legend-lineStyle-inactiveWidth',
+              parentKey:'legend-lineStyle',
+              type:'number'
+            },
+          ]
         },
         {
           title: 'symbolRotate',
           key: 'legend-symbolRotate',
           parentKey:'legend',
+          type:'string'
         },
         {
           title: 'formatter',
           key: 'legend-formatter',
           parentKey:'legend',
+          type:'function'
         },
         {
           title: 'selectedMode',
           key: 'legend-selectedMode',
           parentKey:'legend',
+          type:'string'
         },
         {
           title: 'inactiveColor',
           key: 'legend-inactiveColor',
           parentKey:'legend',
+          type:'color'
         },
         {
           title: 'inactiveBorderColor',
           key: 'legend-inactiveBorderColor',
           parentKey:'legend',
+          type:'color'
         },
         {
           title: 'inactiveBorderWidth',
           key: 'legend-inactiveBorderWidth',
           parentKey:'legend',
+          type:'string'
         },
         {
           title: 'selected',
           key: 'legend-selected',
           parentKey:'legend',
+          type:'string'
         },
         {
           title: 'textStyle',

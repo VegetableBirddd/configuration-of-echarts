@@ -44,12 +44,12 @@ function getItems(data,panelStyle,options={},pos=[] as any[]){ //根据data渲�
         label:v.title,
         children: showItem(v.children,options,v,pos),
         style:panelStyle,
-        extra:<PlusCircleOutlined
-          onClick={(event) => {
-            //阻止默认事件
-            event.stopPropagation();
-          }}
-        />
+        // extra:<PlusCircleOutlined
+        //   onClick={(event) => {
+        //     //阻止默认事件
+        //     event.stopPropagation();
+        //   }}
+        // />
       })
       if(v.title!==undefined) pos.pop();
     }

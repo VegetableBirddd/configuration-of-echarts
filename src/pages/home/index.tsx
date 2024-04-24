@@ -23,12 +23,9 @@ const Home:React.FC = ()=>{
     const [options,updateOptions] = useImmer<EChartsOption>({
         // darkMode:true,
         // backgroundColor:'red',
-        title:[{
-            text:'12312'
-        },{
-          text:'2345'
-        }
-      ],
+        title:{
+          text:(function(){return '123'})()
+        },
         tooltip: {
           trigger: "axis",
           backgroundColor: "rgba(0,0,0,.6)",

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import EchartWrap from "@/components/EchartsWrap";
 import { useImmer } from "use-immer";
 import { EChartsOption } from "echarts";
@@ -17,13 +17,18 @@ const defaultDistance = 300;//默认长度
 const minRightLength = 200;//右边最小长度
 const minLeftLength = 200;//左边最小长度
 
+const MemoTreeEditor = memo(TreeEditor);
+
 const Home:React.FC = ()=>{
     const [options,updateOptions] = useImmer<EChartsOption>({
         // darkMode:true,
         // backgroundColor:'red',
-        title:{
+        title:[{
             text:'12312'
-        },
+        },{
+          text:'2345'
+        }
+      ],
         tooltip: {
           trigger: "axis",
           backgroundColor: "rgba(0,0,0,.6)",
@@ -152,11 +157,16 @@ const Home:React.FC = ()=>{
     }
     // 可拉动扩展条
     // 鼠标点击事件，触发鼠标滚动事件
-    function onMouseDown(event: React.MouseEvent<HTMLDivElement>){
+    // function onMouseDown(event: React.MouseEvent<HTMLDivElement>){
+    //   initialMouseX.current = event.clientX;
+    //   event.preventDefault();
+    //   setIsDragging(true);
+    // }
+    const onMouseDown = useCallback((event: React.MouseEvent<HTMLDivElement>)=>{
       initialMouseX.current = event.clientX;
       event.preventDefault();
       setIsDragging(true);
-    }
+    },[])
     useEffect(()=>{
       const handleMouseMove = (event: MouseEvent)=>{
         if(isDragging){
@@ -274,7 +284,7 @@ const Home:React.FC = ()=>{
                       label:'快速添加属性',
                       key:'shortcut',
                       content:(
-                        <TreeEditor
+                        <MemoTreeEditor
                           options={options}
                           onChange={onChange}
                         />

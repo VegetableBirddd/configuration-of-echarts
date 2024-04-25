@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useRef, useState } from "react";
+import React, { memo, useCallback, useEffect, useRef, useState,useLayoutEffect } from "react";
 import EchartWrap from "@/components/EchartsWrap";
 import { useImmer } from "use-immer";
 import { EChartsOption } from "echarts";
@@ -23,9 +23,9 @@ const Home:React.FC = ()=>{
     const [options,updateOptions] = useImmer<EChartsOption>({
         // darkMode:true,
         // backgroundColor:'red',
-        title:{
-          text:(function(){return '123'})()
-        },
+        // title:{
+        //   text:(function(){return '123'})()
+        // },
         tooltip: {
           trigger: "axis",
           backgroundColor: "rgba(0,0,0,.6)",
@@ -125,9 +125,11 @@ const Home:React.FC = ()=>{
     const [isDragging, setIsDragging] = useState(false); //判断是否拖动
     const [inputValue,setInputValue] = useState(stringify(options));//输入值变量
     const [fail,setFail] = useState(false);//报错信号变量
+    const [loading,setLoading] = useState(false);
     const leftDistance = window.innerWidth - distance;
     //编辑更新函数
     function onChange(newValue) { //传进来的是字符串
+      
       setInputValue(newValue);
       let [singal,res] = parse(newValue);
       if(!singal){
@@ -136,6 +138,16 @@ const Home:React.FC = ()=>{
       }else{
         setFail(true);
       }
+      
+    }
+    function exampleChange(newValue){
+      setLoading(true);
+      let str = stringify(newValue);
+      setInputValue(str);
+      updateOptions(newValue);
+      setTimeout(()=>{
+        setLoading(false);
+      },10)
     }
     function onResizeupdate(){//监听浏览器用于更新
       window.addEventListener(
@@ -258,7 +270,7 @@ const Home:React.FC = ()=>{
               <Tabs
                 className="home-tab"
                 onChange={(key: string)=>{
-                  console.log(key);
+                  // console.log(key);
                 }}
                 type="card"
                 items={
@@ -267,6 +279,7 @@ const Home:React.FC = ()=>{
                       label:'代码编辑',
                       key:'editor',
                       content:(
+                        loading?<></>:
                         <AceEditor
                           onChange={onChange}
                           value={inputValue}
@@ -291,7 +304,9 @@ const Home:React.FC = ()=>{
                       label:'好看示例',
                       key:'example',
                       content:(
-                        <Example />
+                        <Example 
+                          onChange={exampleChange}
+                        />
                       )
                     }
                   ].map(item=>{

@@ -1,9 +1,8 @@
-import React, { memo, useCallback, useEffect, useRef, useState,useLayoutEffect } from "react";
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import EchartWrap from "@/components/EchartsWrap";
 import { useImmer } from "use-immer";
 import { EChartsOption } from "echarts";
 import { graphic } from "echarts";
-import axios from "axios";
 import AceEditor from "@/components/AceEditor";//导入editor
 import { Tabs, Typography } from "antd";
 import './index.css'

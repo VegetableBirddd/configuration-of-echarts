@@ -205,7 +205,7 @@ const Home:React.FC = ()=>{
     return (
         <div className='flex flex-nowrap h-screen w-screen overflow-hidden relative'>
 
-            <div ref={wrapParent} className=" h-full border-2" style={{
+            <div ref={wrapParent} className=" h-full" style={{
               maxWidth:'calc( 100% - 100px )',
               width:leftDistance,
             }}>
